@@ -1,5 +1,5 @@
 baseURL: https://real-network-penetration-testing-ruz78.ondigitalocean.app/
 languageCode: en-us
 title: Real Network Penetration Testing
-theme: hugo-theme-relearn
+theme: hugo-theme-learn
 collapsibleMenu: true
