@@ -1,5 +1,5 @@
 +++
-title = "Responder + Hashcat = Easymode"
+title = "Responder + Hashcat"
 menuTitle = "Responder"
 weight = 3
 +++
