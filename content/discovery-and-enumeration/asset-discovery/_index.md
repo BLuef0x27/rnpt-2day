@@ -1,4 +1,5 @@
 +++
-title = "Asset Discovery"
-weight = 210
+title = "Asset Discovery - Nmap"
+menuTitle = "Nmap"
+weight = 1
 +++
