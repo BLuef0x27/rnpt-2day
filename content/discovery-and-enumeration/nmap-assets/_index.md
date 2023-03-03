@@ -1,6 +1,6 @@
 +++
-title = "Discovering Assets with Nmap"
-menuTitle = "Nmap (Assets)"
+title = "Asset discovery with Nmap"
+menuTitle = "Nmap"
 weight = 1
 +++
 

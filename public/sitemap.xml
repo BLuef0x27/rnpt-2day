@@ -4,7 +4,7 @@
   <url>
     <loc>/introduction/</loc>
   </url><url>
-    <loc>/discovery-and-enumeration/asset-discovery/</loc>
+    <loc>/discovery-and-enumeration/nmap-assets/</loc>
   </url><url>
     <loc>/controlled-exploitation/metasploit/</loc>
   </url><url>
@@ -20,7 +20,7 @@
   </url><url>
     <loc>/controlled-exploitation/</loc>
   </url><url>
-    <loc>/discovery-and-enumeration/nmap2/</loc>
+    <loc>/discovery-and-enumeration/nmap-services/</loc>
   </url><url>
     <loc>/controlled-exploitation/jenkins/</loc>
   </url><url>

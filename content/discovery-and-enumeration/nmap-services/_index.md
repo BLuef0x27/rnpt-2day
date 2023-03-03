@@ -1,5 +1,5 @@
 +++
 title = "Discovering Services with Nmap"
-menuTitle = "Nmap (Services)"
+menuTitle = "Nmap once again"
 weight = 3
 +++
