@@ -17,3 +17,10 @@ nmap -sn -iL ranges.txt -oA pingsweep
  * `-oA <basename>: Output in the three major formats at once`
    * Output three files .nmap, .gnmap and .xml
 
+## RMI Asset Discovery
+Sometimes a system administrator will intentionally configure hosts to ignore ICMP requests making them difficult to discover.  Try this if the Basic Ping Sweep doesn't yield the results you're expecting.
+
+```bash
+nmap -Pn -n -p 22,445,80,443,3389 -iL ranges.txt -oA rmisweep
+```
+
