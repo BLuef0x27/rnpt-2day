@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CrackMapExec on Real Network Penetration Testing</title>
-    <link>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/crackmapexec/</link>
+    <link>/discovery-and-enumeration/crackmapexec/</link>
     <description>Recent content in CrackMapExec on Real Network Penetration Testing</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/crackmapexec/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="/discovery-and-enumeration/crackmapexec/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

@@ -2,54 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/asset-discovery/</loc>
+    <loc>/introduction/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/introduction/</loc>
+    <loc>/discovery-and-enumeration/asset-discovery/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/controlled-exploitation/metasploit/</loc>
+    <loc>/controlled-exploitation/metasploit/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/post-exploitation/windows/</loc>
+    <loc>/post-exploitation/windows/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/wireshark/</loc>
+    <loc>/discovery-and-enumeration/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/</loc>
+    <loc>/discovery-and-enumeration/wireshark/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/post-exploitation/pass-the-hash/</loc>
+    <loc>/post-exploitation/pass-the-hash/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/controlled-exploitation/rdp-access/</loc>
+    <loc>/controlled-exploitation/rdp-access/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/controlled-exploitation/</loc>
+    <loc>/controlled-exploitation/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/nmap2/</loc>
+    <loc>/discovery-and-enumeration/nmap2/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/controlled-exploitation/jenkins/</loc>
+    <loc>/controlled-exploitation/jenkins/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/post-exploitation/linux/</loc>
+    <loc>/post-exploitation/linux/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/responder/</loc>
+    <loc>/discovery-and-enumeration/responder/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/crackmapexec/</loc>
+    <loc>/post-exploitation/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/controlled-exploitation/mythic/</loc>
+    <loc>/discovery-and-enumeration/crackmapexec/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/post-exploitation/</loc>
+    <loc>/controlled-exploitation/mythic/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/documentation/</loc>
+    <loc>/documentation/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/smbclient/</loc>
+    <loc>/discovery-and-enumeration/smbclient/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/exploit-db/</loc>
+    <loc>/discovery-and-enumeration/exploit-db/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/controlled-exploitation/merlin/</loc>
+    <loc>/controlled-exploitation/merlin/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/introduction/access-the-lab/</loc>
+    <loc>/introduction/access-the-lab/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/introduction/preflight-checklist/</loc>
+    <loc>/introduction/preflight-checklist/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/categories/</loc>
+    <loc>/categories/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/</loc>
+    <loc>/</loc>
   </url><url>
-    <loc>https://real-network-penetration-testing-ruz78.ondigitalocean.app/tags/</loc>
+    <loc>/tags/</loc>
   </url>
 </urlset>

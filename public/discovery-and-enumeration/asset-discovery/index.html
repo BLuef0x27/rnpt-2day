@@ -12,20 +12,20 @@
     <title>Discovering Assets with Nmap :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1677860445" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1677860445" rel="stylesheet">
-    <link href="/css/hybrid.css?1677860445" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677860445" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677860445" rel="stylesheet">
-    <link href="/css/auto-complete.css?1677860445" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1677860445" rel="stylesheet">
-    <link href="/css/theme.css?1677860445" rel="stylesheet">
-    <link href="/css/tabs.css?1677860445" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1677860445" rel="stylesheet">
+    <link href="/css/nucleus.css?1677864500" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1677864500" rel="stylesheet">
+    <link href="/css/hybrid.css?1677864500" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1677864500" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1677864500" rel="stylesheet">
+    <link href="/css/auto-complete.css?1677864500" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1677864500" rel="stylesheet">
+    <link href="/css/theme.css?1677864500" rel="stylesheet">
+    <link href="/css/tabs.css?1677864500" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1677864500" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1677860445"></script>
+    <script src="/js/jquery-3.3.1.min.js?1677864500"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1677860445"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1677860445"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1677864500"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1677864500"></script>
 <script type="text/javascript">
     
-        var baseurl = "https:\/\/real-network-penetration-testing-ruz78.ondigitalocean.app\/";
+        var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1677860445"></script>
+<script type="text/javascript" src="/js/search.js?1677864500"></script>
 
     
   </div>
@@ -88,13 +88,13 @@
  
   
     
-    <li data-nav-id="/introduction/" title="Introduction" class="dd-item
+    <li data-nav-id="/introduction/" title="1. Introduction" class="dd-item
         
         
         
         ">
       <a href="/introduction/">
-          Introduction
+          1. Introduction
           
       </a>
       
@@ -176,13 +176,13 @@
  
   
     
-    <li data-nav-id="/discovery-and-enumeration/" title="Discovery &amp; Enumeration" class="dd-item
+    <li data-nav-id="/discovery-and-enumeration/" title="2. Discovery &amp; Enumeration" class="dd-item
         parent
         
         
         ">
       <a href="/discovery-and-enumeration/">
-          Discovery &amp; Enumeration
+          2. Discovery &amp; Enumeration
           
       </a>
       
@@ -394,13 +394,13 @@
  
   
     
-    <li data-nav-id="/controlled-exploitation/" title="Controlled Exploitation" class="dd-item
+    <li data-nav-id="/controlled-exploitation/" title="3. Controlled Exploitation" class="dd-item
         
         
         
         ">
       <a href="/controlled-exploitation/">
-          Controlled Exploitation
+          3. Controlled Exploitation
           
       </a>
       
@@ -560,13 +560,13 @@
  
   
     
-    <li data-nav-id="/post-exploitation/" title="Post-exploitation" class="dd-item
+    <li data-nav-id="/post-exploitation/" title="4. Post-exploitation" class="dd-item
         
         
         
         ">
       <a href="/post-exploitation/">
-          Post-exploitation
+          4. Post-exploitation
           
       </a>
       
@@ -674,13 +674,13 @@
  
   
     
-    <li data-nav-id="/documentation/" title="Documentation &amp; cleanup" class="dd-item
+    <li data-nav-id="/documentation/" title="5. Documentation &amp; cleanup" class="dd-item
         
         
         
         ">
       <a href="/documentation/">
-          Documentation &amp; cleanup
+          5. Documentation &amp; cleanup
           
       </a>
       
@@ -738,7 +738,7 @@
             
           
           
-            <a href='/'>Real Network Penetration Testing</a> > <a href='/discovery-and-enumeration/'>Discovery & Enumeration</a> > Discovering Assets with Nmap
+            <a href='/'>Real Network Penetration Testing</a> > <a href='/discovery-and-enumeration/'>2. Discovery & Enumeration</a> > Discovering Assets with Nmap
           
         
           
@@ -755,6 +755,12 @@
   <ul>
     <li><a href="#basic-ping-sweep">Basic Ping Sweep</a></li>
     <li><a href="#rmi-asset-discovery">RMI Asset Discovery</a></li>
+    <li><a href="#large-scope-subnet-hunt">Large scope subnet hunt</a>
+      <ul>
+        <li><a href="#perform-regular-discovery-on-subnets">Perform regular discovery on subnets</a></li>
+      </ul>
+    </li>
+    <li><a href="#grepable-nmap">Grepable Nmap</a></li>
   </ul>
 </nav>
     </div>
@@ -801,8 +807,37 @@
 </li>
 </ul>
 <h2 id="rmi-asset-discovery">RMI Asset Discovery</h2>
-<p>Sometimes a system administrator will intentionally configure hosts to ignore ICMP requests making them difficult to discover.  Try this if the Basic Ping Sweep doesn&rsquo;t yield the results you&rsquo;re expecting.</p>
+<p>Sometimes a system administrator will intentionally configure hosts to ignore ICMP requests making them difficult to discover.<br>
+Try this if the Basic Ping Sweep doesn&rsquo;t yield the results you&rsquo;re expecting.
+The logic behind it is that systems were stood up for a reason and it&rsquo;s likely the system administrator is too busy to physicaly login
+every time maintenance is required.
+For this reason it is highly likely they configured some sort of remote management interface. These ports are simply the most common ports used for remote administration.
+You can tweak this scan to have more or fewer ports keeping in mind the more ports you&rsquo;re checking the longer you&rsquo;ll have to wait on large scopes.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -Pn -n -p 22,445,80,443,3389 -iL ranges.txt -oA rmisweep
+</span></span></code></pre></div><h2 id="large-scope-subnet-hunt">Large scope subnet hunt</h2>
+<p>What if the client has a Class A <code>/8</code> network and with 16.7Mil possible IPs and has no idea where everything is?  No problem!
+The logic here is that hypothetically speaking, each <code>/24</code> subnet is going to have a gateway on the <code>.1</code> node.<br>
+So isntead of checking for 16 million possible IPs we only need to check for 65 thousand possible gateways.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 10.1-255.1-255.1 --min-rate <span style="color:#ae81ff">10000</span> --min-hostgroup <span style="color:#ae81ff">1024</span> -oA subnetsweep
+</span></span></code></pre></div><ul>
+<li><code>--min-hostgroup/max-hostgroup &lt;size&gt;: Parallel host scan group sizes</code>
+<ul>
+<li>Secret sauce that tells nmap to check 1,024 hosts at a time instead of 64 =P</li>
+</ul>
+</li>
+<li><code>--min-rate &lt;number&gt;: Send packets no slower than &lt;number&gt; per second</code>
+<ul>
+<li>Ignore the posted speed and scan super fast!</li>
+</ul>
+</li>
+</ul>
+<p><img src="./docbrown1.jpg" alt=""></p>
+<h3 id="perform-regular-discovery-on-subnets">Perform regular discovery on subnets</h3>
+<p>Here is a quick command to turn the <code>subnetsweep.gnmap</code> file into a new <code>ranges.txt</code> file that you can use for basic or RMI asset discovery.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep <span style="color:#e6db74">&#34;Up&#34;</span> subnetsweep | cut -d <span style="color:#e6db74">&#34; &#34;</span> -f2 | awk -F <span style="color:#e6db74">&#34;.&#34;</span> <span style="color:#e6db74">&#39;{print $1&#34;.&#34;$2&#34;.&#34;$3&#34;.0/24&#34;}&#39;</span>
+</span></span></code></pre></div><h2 id="grepable-nmap">Grepable Nmap</h2>
+<p>The <code>.gnmap</code> file generated by the above sweeps presents an easily &ldquo;grepable&rdquo; output you can use to build a list of targets.  For simplicity lets call it <code>targets.txt</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat *.gnmap | grep <span style="color:#e6db74">&#34;Up&#34;</span>
 </span></span></code></pre></div>
 
 
@@ -1215,7 +1250,7 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/discovery-and-enumeration/" title="Discovery &amp; Enumeration"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/discovery-and-enumeration/" title="2. Discovery &amp; Enumeration"> <i class="fa fa-chevron-left"></i></a>
 		
 		
 			<a class="nav nav-next" href="/discovery-and-enumeration/wireshark/" title="Asset Discovery - Wireshark" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
@@ -1228,19 +1263,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677860445"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677860445"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677860445"></script>
-    <script src="/js/jquery.sticky.js?1677860445"></script>
-    <script src="/js/featherlight.min.js?1677860445"></script>
-    <script src="/js/highlight.pack.js?1677860445"></script>
+    <script src="/js/clipboard.min.js?1677864500"></script>
+    <script src="/js/perfect-scrollbar.min.js?1677864500"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1677864500"></script>
+    <script src="/js/jquery.sticky.js?1677864500"></script>
+    <script src="/js/featherlight.min.js?1677864500"></script>
+    <script src="/js/highlight.pack.js?1677864500"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677860445"></script>
-    <script src="/js/learn.js?1677860445"></script>
-    <script src="/js/hugo-learn.js?1677860445"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1677864500"></script>
+    <script src="/js/learn.js?1677864500"></script>
+    <script src="/js/hugo-learn.js?1677864500"></script>
     
         
-            <script src="/mermaid/mermaid.js?1677860445"></script>
+            <script src="/mermaid/mermaid.js?1677864500"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

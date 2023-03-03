@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Discovery &amp; Enumeration on Real Network Penetration Testing</title>
-    <link>https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/</link>
-    <description>Recent content in Discovery &amp; Enumeration on Real Network Penetration Testing</description>
+    <title>2. Discovery &amp; Enumeration on Real Network Penetration Testing</title>
+    <link>/discovery-and-enumeration/</link>
+    <description>Recent content in 2. Discovery &amp; Enumeration on Real Network Penetration Testing</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://real-network-penetration-testing-ruz78.ondigitalocean.app/discovery-and-enumeration/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="/discovery-and-enumeration/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
