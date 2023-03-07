@@ -4,12 +4,14 @@ menuTitle = "Nmap once again"
 weight = 3
 +++
 
+![](./nmap2.png)
+
 ## 1. Comon TCP Ports
 Sometimes you have to perform service discovery against so many assets that it makes sense to first scan the most common ports.
 Nmap has a flag specifically for this use case `--top-ports [number]`.
 
 ```bash
-nmap -Pn -n -iL targets.txt --top-ports 25 -oA scans/tcp-common 
+nmap -Pn -n -sV -iL targets.txt --top-ports 25 -oA scans/tcp-common 
 ```
 
 * `--top-ports <number>: Scan <number> most common ports`
@@ -29,5 +31,5 @@ You'll develop your own list of favorites as you conduct more engagements.  For 
 
 ```bash
 export MYPORTS='21-23,25,53,80-85,389,443,445,636,1433,3000,3306,3389,5800,5900,7443,8080,8443,8888'
-nmap -Pn -n -iL targets.txt -p $MYPORTS -oA scans/tcp-fav 
+nmap -Pn -n -sV -iL targets.txt -p $MYPORTS -oA scans/tcp-fav 
 ```
