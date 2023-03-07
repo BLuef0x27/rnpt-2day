@@ -14,12 +14,12 @@ Usually all you need to uncover lots of juicy hosts (potential attack targets).
 ```bash
 nmap -sn -iL scope.txt -oA scans/pingsweep
 ```
- * **-sn: Ping Scan - disable port scan**
-   * Tell nmap not to do a port scan
- * **-iL <inputfilename>: Input from list of hosts/networks**
-   * File containing IP ranges from your scope
- * **-oA <basename>: Output in the three major formats at once**
-   * Output three files .nmap, .gnmap and .xml
+ * **-sn:**
+   * Ping Scan - disable port scan
+ * **-iL [inputfilename>]:**
+   * Input from list of hosts/networks
+ * **-oA [basename]:**
+   * Output in the three major formats at once
 
 ### 1.1. Filter the results
 Now you want to extract the IP address for all hosts reported as being "Up" and place them in a *.txt* file.
@@ -59,10 +59,10 @@ So isntead of checking for 16 million possible IPs we only need to check for 65 
 ```bash
 nmap -sn 192.1-255.1-255.1 --min-rate 10000 --min-hostgroup 1024 -oA scans/subnetsweep
 ```
-* **--min-hostgroup/max-hostgroup <size>: Parallel host scan group sizes**
-  * Secret sauce that tells nmap to check 1,024 hosts at a time instead of 64 =P
-* **--min-rate <number>: Send packets no slower than <number> per second**
-  * Ignore the posted speed and scan super fast!
+* **--min-hostgroup/max-hostgroup [size]:**
+  * Parallel host scan group sizes (Secret sauce that tells nmap to check 1,024 hosts at a time instead of 64)
+* **--min-rate [number]:**
+  * Send packets no slower than <number> per second
 
 [//]:![](./docbrown1.jpg)
 

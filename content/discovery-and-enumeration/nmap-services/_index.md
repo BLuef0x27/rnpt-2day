@@ -14,10 +14,10 @@ Nmap has a flag specifically for this use case *--top-ports [number]*.
 nmap -Pn -n -sV -iL targets.txt --top-ports 25 -oA scans/tcp-common 
 ```
 
-* ***--top-ports <number>: Scan <number> most common ports***
-  * Tell nmap to scan the <number> most common ports 
-* ***-sV: Probe open ports to determine service/version info***
-  * Get specific version information if possible
+* **--top-ports:**
+  * Scan [number] most common ports
+* **-sV:**
+  * Probe open ports to determine service/version info
 
 This will scan the following 25 ports against all IP addresses in the *targets.txt* file.  These 25 ports, according to Nmap are the 25 most commonly used ports.
 

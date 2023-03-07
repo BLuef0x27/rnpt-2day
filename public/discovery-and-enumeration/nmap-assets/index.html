@@ -12,20 +12,20 @@
     <title>Host discovery with Nmap :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1678214274" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1678214274" rel="stylesheet">
-    <link href="/css/hybrid.css?1678214274" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1678214274" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1678214274" rel="stylesheet">
-    <link href="/css/auto-complete.css?1678214274" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1678214274" rel="stylesheet">
-    <link href="/css/theme.css?1678214274" rel="stylesheet">
-    <link href="/css/tabs.css?1678214274" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1678214274" rel="stylesheet">
+    <link href="/css/nucleus.css?1678214867" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1678214867" rel="stylesheet">
+    <link href="/css/hybrid.css?1678214867" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678214867" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678214867" rel="stylesheet">
+    <link href="/css/auto-complete.css?1678214867" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1678214867" rel="stylesheet">
+    <link href="/css/theme.css?1678214867" rel="stylesheet">
+    <link href="/css/tabs.css?1678214867" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1678214867" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1678214274"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678214867"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1678214274"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1678214274"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1678214867"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1678214867"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1678214274"></script>
+<script type="text/javascript" src="/js/search.js?1678214867"></script>
 
     
   </div>
@@ -800,19 +800,19 @@
 <p>Usually all you need to uncover lots of juicy hosts (potential attack targets).</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn -iL scope.txt -oA scans/pingsweep
 </span></span></code></pre></div><ul>
-<li><strong>-sn: Ping Scan - disable port scan</strong>
+<li><strong>-sn:</strong>
 <ul>
-<li>Tell nmap not to do a port scan</li>
+<li>Ping Scan - disable port scan</li>
 </ul>
 </li>
-<li><strong>-iL <!-- raw HTML omitted -->: Input from list of hosts/networks</strong>
+<li><strong>-iL [inputfilename&gt;]:</strong>
 <ul>
-<li>File containing IP ranges from your scope</li>
+<li>Input from list of hosts/networks</li>
 </ul>
 </li>
-<li><strong>-oA <!-- raw HTML omitted -->: Output in the three major formats at once</strong>
+<li><strong>-oA [basename]:</strong>
 <ul>
-<li>Output three files .nmap, .gnmap and .xml</li>
+<li>Output in the three major formats at once</li>
 </ul>
 </li>
 </ul>
@@ -841,14 +841,14 @@ DO NOT run this scan, I&rsquo;ll explain :)</p>
 </blockquote>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.1-255.1-255.1 --min-rate <span style="color:#ae81ff">10000</span> --min-hostgroup <span style="color:#ae81ff">1024</span> -oA scans/subnetsweep
 </span></span></code></pre></div><ul>
-<li><strong>&ndash;min-hostgroup/max-hostgroup <!-- raw HTML omitted -->: Parallel host scan group sizes</strong>
+<li><strong>&ndash;min-hostgroup/max-hostgroup [size]:</strong>
 <ul>
-<li>Secret sauce that tells nmap to check 1,024 hosts at a time instead of 64 =P</li>
+<li>Parallel host scan group sizes (Secret sauce that tells nmap to check 1,024 hosts at a time instead of 64)</li>
 </ul>
 </li>
-<li><strong>&ndash;min-rate <!-- raw HTML omitted -->: Send packets no slower than <!-- raw HTML omitted --> per second</strong>
+<li><strong>&ndash;min-rate [number]:</strong>
 <ul>
-<li>Ignore the posted speed and scan super fast!</li>
+<li>Send packets no slower than <!-- raw HTML omitted --> per second</li>
 </ul>
 </li>
 </ul>
@@ -1283,19 +1283,19 @@ DO NOT run this scan, I&rsquo;ll explain :)</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1678214274"></script>
-    <script src="/js/perfect-scrollbar.min.js?1678214274"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1678214274"></script>
-    <script src="/js/jquery.sticky.js?1678214274"></script>
-    <script src="/js/featherlight.min.js?1678214274"></script>
-    <script src="/js/highlight.pack.js?1678214274"></script>
+    <script src="/js/clipboard.min.js?1678214867"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678214867"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678214867"></script>
+    <script src="/js/jquery.sticky.js?1678214867"></script>
+    <script src="/js/featherlight.min.js?1678214867"></script>
+    <script src="/js/highlight.pack.js?1678214867"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1678214274"></script>
-    <script src="/js/learn.js?1678214274"></script>
-    <script src="/js/hugo-learn.js?1678214274"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678214867"></script>
+    <script src="/js/learn.js?1678214867"></script>
+    <script src="/js/hugo-learn.js?1678214867"></script>
     
         
-            <script src="/mermaid/mermaid.js?1678214274"></script>
+            <script src="/mermaid/mermaid.js?1678214867"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
