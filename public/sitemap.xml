@@ -4,15 +4,11 @@
   <url>
     <loc>/introduction/</loc>
   </url><url>
-    <loc>/discovery-and-enumeration/nmap-assets/</loc>
-  </url><url>
     <loc>/controlled-exploitation/metasploit/</loc>
   </url><url>
     <loc>/post-exploitation/windows/</loc>
   </url><url>
     <loc>/discovery-and-enumeration/</loc>
-  </url><url>
-    <loc>/discovery-and-enumeration/wireshark/</loc>
   </url><url>
     <loc>/post-exploitation/pass-the-hash/</loc>
   </url><url>
@@ -20,31 +16,41 @@
   </url><url>
     <loc>/controlled-exploitation/</loc>
   </url><url>
-    <loc>/discovery-and-enumeration/nmap-services/</loc>
-  </url><url>
     <loc>/controlled-exploitation/jenkins/</loc>
   </url><url>
     <loc>/post-exploitation/linux/</loc>
   </url><url>
-    <loc>/discovery-and-enumeration/responder/</loc>
-  </url><url>
     <loc>/post-exploitation/</loc>
-  </url><url>
-    <loc>/discovery-and-enumeration/crackmapexec/</loc>
   </url><url>
     <loc>/controlled-exploitation/mythic/</loc>
   </url><url>
     <loc>/documentation/</loc>
   </url><url>
-    <loc>/discovery-and-enumeration/smbclient/</loc>
-  </url><url>
-    <loc>/discovery-and-enumeration/exploit-db/</loc>
-  </url><url>
     <loc>/controlled-exploitation/merlin/</loc>
+  </url><url>
+    <loc>/discovery-and-enumeration/asset-discovery/</loc>
+  </url><url>
+    <loc>/discovery-and-enumeration/asset-discovery/nmap-assets/</loc>
   </url><url>
     <loc>/introduction/access-the-lab/</loc>
   </url><url>
+    <loc>/discovery-and-enumeration/asset-discovery/wireshark/</loc>
+  </url><url>
     <loc>/introduction/preflight-checklist/</loc>
+  </url><url>
+    <loc>/discovery-and-enumeration/service-discovery/</loc>
+  </url><url>
+    <loc>/discovery-and-enumeration/service-discovery/nmap-services/</loc>
+  </url><url>
+    <loc>/discovery-and-enumeration/vuln-discovery/</loc>
+  </url><url>
+    <loc>/discovery-and-enumeration/vuln-discovery/responder/</loc>
+  </url><url>
+    <loc>/discovery-and-enumeration/vuln-discovery/crackmapexec/</loc>
+  </url><url>
+    <loc>/discovery-and-enumeration/vuln-discovery/smbclient/</loc>
+  </url><url>
+    <loc>/discovery-and-enumeration/vuln-discovery/exploit-db/</loc>
   </url><url>
     <loc>/categories/</loc>
   </url><url>

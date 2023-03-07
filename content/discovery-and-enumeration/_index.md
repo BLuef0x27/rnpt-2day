@@ -4,4 +4,4 @@ weight = 2
 alwaysopen = false
 +++
 
-![](./phase1.png)
+![](./disco.png)

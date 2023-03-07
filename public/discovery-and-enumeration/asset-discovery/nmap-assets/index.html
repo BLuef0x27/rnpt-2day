@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.110.0">
+    <meta name="description" content="">
+
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Host discovery with Nmap :: Real Network Penetration Testing</title>
+
+    
+    <link href="/css/nucleus.css?1678226773" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1678226773" rel="stylesheet">
+    <link href="/css/hybrid.css?1678226773" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678226773" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678226773" rel="stylesheet">
+    <link href="/css/auto-complete.css?1678226773" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1678226773" rel="stylesheet">
+    <link href="/css/theme.css?1678226773" rel="stylesheet">
+    <link href="/css/tabs.css?1678226773" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1678226773" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1678226773"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/discovery-and-enumeration/asset-discovery/nmap-assets/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href='/'>
+  <img src="/logo1.png"></img>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1678226773"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1678226773"></script>
+<script type="text/javascript">
+    
+        var baseurl = "";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1678226773"></script>
+
+    
+  </div>
+  
+    <section id="homelinks">
+      <ul>
+        <li>
+            <a class="padding" href='/'><i class='fas fa-home'></i> Home</a>
+        </li>
+      </ul>
+    </section>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/introduction/" title="1. Introduction" class="dd-item
+        
+        
+        
+        ">
+      <a href="/introduction/">
+          1. Introduction
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/introduction/access-the-lab/" title="Accessing the Lab" class="dd-item
+        
+        
+        
+        ">
+      <a href="/introduction/access-the-lab/">
+          Accessing the Lab
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/introduction/preflight-checklist/" title="Preflight Checklist" class="dd-item
+        
+        
+        
+        ">
+      <a href="/introduction/preflight-checklist/">
+          Preflight Checklist
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/" title="2. Discovery &amp; Enumeration" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/">
+          2. Discovery &amp; Enumeration
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/asset-discovery/" title="Asset/Host Discovery" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/asset-discovery/">
+          2.1. Asset Discovery
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/asset-discovery/nmap-assets/" title="Host discovery with Nmap" class="dd-item
+        
+        active
+        
+        ">
+      <a href="/discovery-and-enumeration/asset-discovery/nmap-assets/">
+          Nmap
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/asset-discovery/wireshark/" title="Asset discovery with Wireshark" class="dd-item
+        
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/asset-discovery/wireshark/">
+          Wireshark
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/service-discovery/" title="Service Discovery" class="dd-item
+        
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/service-discovery/">
+          2.2 Service Discovery
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/service-discovery/nmap-services/" title="Discovering Services with Nmap" class="dd-item
+        
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/service-discovery/nmap-services/">
+          Nmap once again
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/vuln-discovery/" title="Vulnerability Discovery" class="dd-item
+        
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/vuln-discovery/">
+          2.3. Vulnerability Discovery
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/vuln-discovery/responder/" title="Responder &#43; Hashcat" class="dd-item
+        
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/vuln-discovery/responder/">
+          Responder
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/vuln-discovery/crackmapexec/" title="CrackMapExec" class="dd-item
+        
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/vuln-discovery/crackmapexec/">
+          CrackMapExec
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/vuln-discovery/smbclient/" title="SMB Client" class="dd-item
+        
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/vuln-discovery/smbclient/">
+          Smbclient
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/discovery-and-enumeration/vuln-discovery/exploit-db/" title="Exploit Database" class="dd-item
+        
+        
+        
+        ">
+      <a href="/discovery-and-enumeration/vuln-discovery/exploit-db/">
+          exploit-db
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/controlled-exploitation/" title="3. Controlled Exploitation" class="dd-item
+        
+        
+        
+        ">
+      <a href="/controlled-exploitation/">
+          3. Controlled Exploitation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/controlled-exploitation/metasploit/" title="Metasploit" class="dd-item
+        
+        
+        
+        ">
+      <a href="/controlled-exploitation/metasploit/">
+          Metasploit
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/controlled-exploitation/rdp-access/" title="RDP Access" class="dd-item
+        
+        
+        
+        ">
+      <a href="/controlled-exploitation/rdp-access/">
+          RDP Access
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/controlled-exploitation/jenkins/" title="Jenkins" class="dd-item
+        
+        
+        
+        ">
+      <a href="/controlled-exploitation/jenkins/">
+          Jenkins
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/controlled-exploitation/mythic/" title="Mythic C2 Framework" class="dd-item
+        
+        
+        
+        ">
+      <a href="/controlled-exploitation/mythic/">
+          Mythic C2 Framework
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/controlled-exploitation/merlin/" title="Merlin Agent" class="dd-item
+        
+        
+        
+        ">
+      <a href="/controlled-exploitation/merlin/">
+          Merlin Agent
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/post-exploitation/" title="4. Post-exploitation" class="dd-item
+        
+        
+        
+        ">
+      <a href="/post-exploitation/">
+          4. Post-exploitation
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/post-exploitation/windows/" title="Windows Privilege Escalation" class="dd-item
+        
+        
+        
+        ">
+      <a href="/post-exploitation/windows/">
+          Windows Privilege Escalation
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/post-exploitation/pass-the-hash/" title="Pass-the-hash" class="dd-item
+        
+        
+        
+        ">
+      <a href="/post-exploitation/pass-the-hash/">
+          Pass-the-hash
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/post-exploitation/linux/" title="Linux Privilege Escalation" class="dd-item
+        
+        
+        
+        ">
+      <a href="/post-exploitation/linux/">
+          Linux Privilege Escalation
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/documentation/" title="5. Documentation &amp; cleanup" class="dd-item
+        
+        
+        
+        ">
+      <a href="/documentation/">
+          5. Documentation &amp; cleanup
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="https://getgrav.org">Grav</a> and <a href="https://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Real Network Penetration Testing</a> > <a href='/discovery-and-enumeration/'>2. Discovery & Enumeration</a> > <a href='/discovery-and-enumeration/asset-discovery/'>Asset/Host Discovery</a> > Host discovery with Nmap
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-basic-ping-sweep">1. Basic Ping Sweep</a>
+      <ul>
+        <li><a href="#11-filter-the-results">1.1. Filter the results</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-rmi-host-discovery">2. RMI Host Discovery</a>
+      <ul>
+        <li><a href="#21-filter-the-results">2.1. Filter the results</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-subnet-hunting">3. Subnet hunting</a>
+      <ul>
+        <li><a href="#31-perform-regular-discovery-on-subnets">3.1. Perform regular discovery on subnets</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-fished-with-host-discovery">4. Fished with Host Discovery</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Host discovery with Nmap
+            </h1>
+          
+
+        
+
+
+
+	<p><img src="./trinity.png" alt=""></p>
+<p>Your first objective is to identify live assets or &ldquo;hosts&rdquo;.  CD into your <em>engagements/sciencerocks/discovery</em> directory.</p>
+<h2 id="1-basic-ping-sweep">1. Basic Ping Sweep</h2>
+<p>Usually all you need to uncover lots of juicy hosts (potential attack targets).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn -iL scope.txt -oA scans/pingsweep
+</span></span></code></pre></div><ul>
+<li><strong>-sn:</strong>
+<ul>
+<li>Ping Scan - disable port scan</li>
+</ul>
+</li>
+<li><strong>-iL [inputfilename&gt;]:</strong>
+<ul>
+<li>Input from list of hosts/networks</li>
+</ul>
+</li>
+<li><strong>-oA [basename]:</strong>
+<ul>
+<li>Output in the three major formats at once</li>
+</ul>
+</li>
+</ul>
+<h3 id="11-filter-the-results">1.1. Filter the results</h3>
+<p>Now you want to extract the IP address for all hosts reported as being &ldquo;Up&rdquo; and place them in a <em>.txt</em> file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep <span style="color:#e6db74">&#34;Up&#34;</span> scans/pingsweep.gnmap | cut -d <span style="color:#e6db74">&#34; &#34;</span> -f2 &gt; hosts/basic.txt
+</span></span></code></pre></div><h2 id="2-rmi-host-discovery">2. RMI Host Discovery</h2>
+<p>Sometimes a system administrator will intentionally configure hosts to ignore ICMP requests making them difficult to discover.<br>
+Try this if the Basic Ping Sweep doesn&rsquo;t yield the results you&rsquo;re expecting.
+The logic behind it is that systems were stood up for a reason and it&rsquo;s likely the system administrator is too busy to physicaly login
+every time maintenance is required.
+For this reason it is highly likely they configured some sort of remote management interface. These ports are simply the most common ports used for remote administration.
+You can tweak this scan to have more or fewer ports keeping in mind the more ports you&rsquo;re checking the longer you&rsquo;ll have to wait on large scopes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -Pn -n -p 22,445,80,443,3389 -iL scope.txt -oA scans/rmisweep
+</span></span></code></pre></div><h3 id="21-filter-the-results">2.1. Filter the results</h3>
+<p>Same as before but this time grep on the string <em>open</em> to see IP addresses of hosts that had one of the RMI ports open.
+Some hosts could have multiple different RMI ports open so use <em>sort -u</em> to remote any duplicate entries.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep <span style="color:#e6db74">&#34;open&#34;</span> scans/rmisweep.gnmap | cut -d <span style="color:#e6db74">&#34; &#34;</span> -f2 | sort -u &gt; hosts/rmi.txt
+</span></span></code></pre></div><h2 id="3-subnet-hunting">3. Subnet hunting</h2>
+<p>What if the client has a Class A <em>/8</em> network and with 16.7Mil possible IPs and has no idea where everything is?  No problem!
+The logic here is that hypothetically speaking, each <em>/24</em> subnet is going to have a gateway on the <em>.1</em> node.<br>
+So isntead of checking for 16 million possible IPs we only need to check for 65 thousand possible gateways.</p>
+<blockquote>
+<p><strong>Warning</strong>
+DO NOT run this scan, I&rsquo;ll explain :)</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -sn 192.1-255.1-255.1 --min-rate <span style="color:#ae81ff">10000</span> --min-hostgroup <span style="color:#ae81ff">1024</span> -oA scans/subnetsweep
+</span></span></code></pre></div><ul>
+<li><strong>&ndash;min-hostgroup/max-hostgroup [size]:</strong>
+<ul>
+<li>Parallel host scan group sizes (Secret sauce that tells nmap to check 1,024 hosts at a time instead of 64)</li>
+</ul>
+</li>
+<li><strong>&ndash;min-rate [number]:</strong>
+<ul>
+<li>Send packets no slower than <!-- raw HTML omitted --> per second</li>
+</ul>
+</li>
+</ul>
+<h3 id="31-perform-regular-discovery-on-subnets">3.1. Perform regular discovery on subnets</h3>
+<p>Here is a quick command to turn the <em>subnetsweep.gnmap</em> file into a new <em>ranges.txt</em> file that you can use for basic or RMI host discovery.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep <span style="color:#e6db74">&#34;Up&#34;</span> scans/subnetsweep | cut -d <span style="color:#e6db74">&#34; &#34;</span> -f2 | awk -F <span style="color:#e6db74">&#34;.&#34;</span> <span style="color:#e6db74">&#39;{print $1&#34;.&#34;$2&#34;.&#34;$3&#34;.0/24&#34;}&#39;</span> &gt; subnets.txt
+</span></span></code></pre></div><h2 id="4-fished-with-host-discovery">4. Fished with Host Discovery</h2>
+<p>Now that you&rsquo;ve completed your host discovery scans run this command to build your final <em>targets.txt</em> file which you&rsquo;ll use for service discovery.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat hosts/*.txt | sort -u &gt; targets.txt
+</span></span></code></pre></div>
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/discovery-and-enumeration/asset-discovery/" title="Asset/Host Discovery"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/discovery-and-enumeration/asset-discovery/wireshark/" title="Asset discovery with Wireshark" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1678226773"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678226773"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678226773"></script>
+    <script src="/js/jquery.sticky.js?1678226773"></script>
+    <script src="/js/featherlight.min.js?1678226773"></script>
+    <script src="/js/highlight.pack.js?1678226773"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678226773"></script>
+    <script src="/js/learn.js?1678226773"></script>
+    <script src="/js/hugo-learn.js?1678226773"></script>
+    
+        
+            <script src="/mermaid/mermaid.js?1678226773"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    
+
+  </body>
+</html>

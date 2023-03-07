@@ -1,7 +1,7 @@
 +++
 title = "Host discovery with Nmap"
 menuTitle = "Nmap"
-weight = 1
+weight = 10
 +++
 
 ![](./trinity.png)

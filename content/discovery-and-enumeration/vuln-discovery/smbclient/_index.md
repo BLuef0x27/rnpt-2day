@@ -1,5 +1,5 @@
 +++
 title = "SMB Client"
 menuTitle = "Smbclient"
-weight = 5
+weight = 60
 +++

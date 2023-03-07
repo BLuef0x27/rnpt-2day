@@ -1,4 +1,4 @@
 +++
 title = "CrackMapExec"
-weight = 4
+weight = 50
 +++
