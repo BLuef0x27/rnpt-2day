@@ -6,7 +6,7 @@ weight = 1
 
 ![](./trinity.png)
 
-Your first objective is to identify live assets or "hosts".  CD into your `engagements/sciencerocks/discovery` directory.
+Your first objective is to identify live assets or "hosts".  CD into your *engagements/sciencerocks/discovery* directory.
 
 ## 1. Basic Ping Sweep
 Usually all you need to uncover lots of juicy hosts (potential attack targets).
@@ -14,15 +14,15 @@ Usually all you need to uncover lots of juicy hosts (potential attack targets).
 ```bash
 nmap -sn -iL scope.txt -oA scans/pingsweep
 ```
- * `-sn: Ping Scan - disable port scan`
+ * **-sn: Ping Scan - disable port scan**
    * Tell nmap not to do a port scan
- * `-iL <inputfilename>: Input from list of hosts/networks`
+ * **-iL <inputfilename>: Input from list of hosts/networks**
    * File containing IP ranges from your scope
- * `-oA <basename>: Output in the three major formats at once`
+ * **-oA <basename>: Output in the three major formats at once**
    * Output three files .nmap, .gnmap and .xml
 
 ### 1.1. Filter the results
-Now you want to extract the IP address for all hosts reported as being "Up" and place them in a `.txt` file.
+Now you want to extract the IP address for all hosts reported as being "Up" and place them in a *.txt* file.
 
 ```bash
 grep "Up" scans/pingsweep.gnmap | cut -d " " -f2 > hosts/basic.txt
@@ -41,16 +41,16 @@ nmap -Pn -n -p 22,445,80,443,3389 -iL scope.txt -oA scans/rmisweep
 ```
 
 ### 2.1. Filter the results
-Same as before but this time grep on the string `open` to see IP addresses of hosts that had one of the RMI ports open.
-Some hosts could have multiple different RMI ports open so use `sort -u` to remote any duplicate entries.
+Same as before but this time grep on the string *open* to see IP addresses of hosts that had one of the RMI ports open.
+Some hosts could have multiple different RMI ports open so use *sort -u* to remote any duplicate entries.
 
 ```bash
 grep "open" scans/rmisweep.gnmap | cut -d " " -f2 | sort -u > hosts/rmi.txt
 ```
 
 ## 3. Subnet hunting
-What if the client has a Class A `/8` network and with 16.7Mil possible IPs and has no idea where everything is?  No problem!
-The logic here is that hypothetically speaking, each `/24` subnet is going to have a gateway on the `.1` node.  
+What if the client has a Class A */8* network and with 16.7Mil possible IPs and has no idea where everything is?  No problem!
+The logic here is that hypothetically speaking, each */24* subnet is going to have a gateway on the *.1* node.  
 So isntead of checking for 16 million possible IPs we only need to check for 65 thousand possible gateways.
 
 > **Warning**
@@ -59,22 +59,22 @@ So isntead of checking for 16 million possible IPs we only need to check for 65 
 ```bash
 nmap -sn 192.1-255.1-255.1 --min-rate 10000 --min-hostgroup 1024 -oA scans/subnetsweep
 ```
-* `--min-hostgroup/max-hostgroup <size>: Parallel host scan group sizes`
+* **--min-hostgroup/max-hostgroup <size>: Parallel host scan group sizes**
   * Secret sauce that tells nmap to check 1,024 hosts at a time instead of 64 =P
-* `--min-rate <number>: Send packets no slower than <number> per second`
+* **--min-rate <number>: Send packets no slower than <number> per second**
   * Ignore the posted speed and scan super fast!
 
 [//]:![](./docbrown1.jpg)
 
 ### 3.1. Perform regular discovery on subnets
-Here is a quick command to turn the `subnetsweep.gnmap` file into a new `ranges.txt` file that you can use for basic or RMI host discovery.
+Here is a quick command to turn the *subnetsweep.gnmap* file into a new *ranges.txt* file that you can use for basic or RMI host discovery.
 
 ```bash
 grep "Up" scans/subnetsweep | cut -d " " -f2 | awk -F "." '{print $1"."$2"."$3".0/24"}' > subnets.txt
 ```
 
 ## 4. Fished with Host Discovery
-Now that you've completed your host discovery scans run this command to build your final `targets.txt` file which you'll use for service discovery.
+Now that you've completed your host discovery scans run this command to build your final *targets.txt* file which you'll use for service discovery.
 
 ```bash
 cat hosts/*.txt | sort -u > targets.txt
