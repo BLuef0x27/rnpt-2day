@@ -35,3 +35,9 @@ You'll develop your own list of favorites as you conduct more engagements.  For 
 export MYPORTS='21-23,25,53,80-85,389,443,445,636,1433,3000,3306,3389,5800,5900,7443,8080,8443,8888'
 nmap -Pn -n -sV -iL targets.txt -p $MYPORTS -oA scans/tcp-fav 
 ```
+
+## 2. All TCP Ports
+This scan can take a while but will check for all 65k+ ports and often identify *weird* services or maybe normal services listening on *non-standard* ports.
+```bash
+nmap -Pn -n -sV -A -iL targets.txt -p 1-65535 -oA scans/tcp-all
+```

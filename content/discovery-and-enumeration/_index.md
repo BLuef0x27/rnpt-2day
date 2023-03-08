@@ -4,4 +4,4 @@ weight = 2
 alwaysopen = false
 +++
 
-![](./disco.png)
+![](./disco-enum.png)

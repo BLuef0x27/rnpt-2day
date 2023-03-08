@@ -12,20 +12,20 @@
     <title>Discovering Services with Nmap :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1678226773" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1678226773" rel="stylesheet">
-    <link href="/css/hybrid.css?1678226773" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1678226773" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1678226773" rel="stylesheet">
-    <link href="/css/auto-complete.css?1678226773" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1678226773" rel="stylesheet">
-    <link href="/css/theme.css?1678226773" rel="stylesheet">
-    <link href="/css/tabs.css?1678226773" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1678226773" rel="stylesheet">
+    <link href="/css/nucleus.css?1678296720" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1678296720" rel="stylesheet">
+    <link href="/css/hybrid.css?1678296720" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678296720" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678296720" rel="stylesheet">
+    <link href="/css/auto-complete.css?1678296720" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1678296720" rel="stylesheet">
+    <link href="/css/theme.css?1678296720" rel="stylesheet">
+    <link href="/css/tabs.css?1678296720" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1678296720" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1678226773"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678296720"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1678226773"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1678226773"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1678296720"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1678296720"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1678226773"></script>
+<script type="text/javascript" src="/js/search.js?1678296720"></script>
 
     
   </div>
@@ -878,6 +878,7 @@
         <li><a href="#11-commonly-attacked-ports">1.1. Commonly Attacked Ports</a></li>
       </ul>
     </li>
+    <li><a href="#2-all-tcp-ports">2. All TCP Ports</a></li>
   </ul>
 </nav>
     </div>
@@ -927,6 +928,9 @@ Nmap has a flag specifically for this use case <em>&ndash;top-ports [number]</em
 You&rsquo;ll develop your own list of favorites as you conduct more engagements.  For now, I give you my own.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export MYPORTS<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;21-23,25,53,80-85,389,443,445,636,1433,3000,3306,3389,5800,5900,7443,8080,8443,8888&#39;</span>
 </span></span><span style="display:flex;"><span>nmap -Pn -n -sV -iL targets.txt -p $MYPORTS -oA scans/tcp-fav 
+</span></span></code></pre></div><h2 id="2-all-tcp-ports">2. All TCP Ports</h2>
+<p>This scan can take a while but will check for all 65k+ ports and often identify <em>weird</em> services or maybe normal services listening on <em>non-standard</em> ports.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nmap -Pn -n -sV -A -iL targets.txt -p 1-65535 -oA scans/tcp-all
 </span></span></code></pre></div>
 
 
@@ -1410,19 +1414,19 @@ You&rsquo;ll develop your own list of favorites as you conduct more engagements.
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1678226773"></script>
-    <script src="/js/perfect-scrollbar.min.js?1678226773"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1678226773"></script>
-    <script src="/js/jquery.sticky.js?1678226773"></script>
-    <script src="/js/featherlight.min.js?1678226773"></script>
-    <script src="/js/highlight.pack.js?1678226773"></script>
+    <script src="/js/clipboard.min.js?1678296720"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678296720"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678296720"></script>
+    <script src="/js/jquery.sticky.js?1678296720"></script>
+    <script src="/js/featherlight.min.js?1678296720"></script>
+    <script src="/js/highlight.pack.js?1678296720"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1678226773"></script>
-    <script src="/js/learn.js?1678226773"></script>
-    <script src="/js/hugo-learn.js?1678226773"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678296720"></script>
+    <script src="/js/learn.js?1678296720"></script>
+    <script src="/js/hugo-learn.js?1678296720"></script>
     
         
-            <script src="/mermaid/mermaid.js?1678226773"></script>
+            <script src="/mermaid/mermaid.js?1678296720"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
