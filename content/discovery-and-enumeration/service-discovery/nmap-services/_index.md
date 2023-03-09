@@ -37,7 +37,27 @@ nmap -Pn -n -sV -iL targets.txt -p $MYPORTS -oA scans/tcp-fav
 ```
 
 ## 2. All TCP Ports
-This scan can take a while but will check for all 65k+ ports and often identify *weird* services or maybe normal services listening on *non-standard* ports.
+This scan can take a while but will check for all 65k+ ports and often identify *weird* services or maybe normal services listening on *non-standard* ports.  
+*H.D. Moore* once told me that the "magic" number is 50,000.  That's the true maximum number of packets per second that Nmap can send due to old school C style TCP socket programming.
 ```bash
-nmap -Pn -n -sV -A -iL targets.txt -p 1-65535 -oA scans/tcp-all
+nmap -Pn -n -sV -A -iL targets.txt -p 1-65535 -oA scans/tcp-all --min-hostgroup 100 --min-rate 500 --excludefile exclude.txt
 ```
+
+* **--min-hostgroup 100:**
+  * Scan 100 hosts at a time
+* **--min-rate 500:**
+  * Scan 500 ports at a time on each of the 100 hosts
+* **-A:**
+  * Enable OS detection, version detection, script scanning, and traceroute
+* **--excludefile [file]:**
+  * Don't scan these hosts
+
+## 3. Parsenmap Gem
+There is a lot of great information stored within all three *.nmap*, *.gnmap*, and *.xml* files. 
+For a quick and dirty overview of just open ports and services I recommend the *parsenmap* Ruby gem
+
+```bash
+parsenmap scans/tcp-all.xml | column -t -s $'\t'
+```
+
+![](./parsenmap.png)
