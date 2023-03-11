@@ -640,8 +640,8 @@ code {
     border-radius: 2px;
     white-space: nowrap;
     color: #5e5e5e;
-    background: #FFF7DD;
-    border: 1px solid #fbf0cb;
+    background: #dacdff;
+    border: 1px solid #dacdff;
     padding: 0px 2px;
 }
 code + .copy-to-clipboard {
@@ -1074,7 +1074,7 @@ td {
     vertical-align: middle;
     position: relative;
     color: #5e5e5e;
-    background-color: #FFF7DD;
+    background-color: #dacdff;
     margin-left: -.2rem;
     cursor: pointer;
     border-radius: 0 2px 2px 0;
@@ -1087,12 +1087,12 @@ pre .copy-to-clipboard {
     position: absolute;
     right: 4px;
     top: 4px;
-    background-color: #C1C4C6;
+    background-color: #dacdff;
     color: #ccc;
     border-radius: 2px;
 }
 pre .copy-to-clipboard:hover {
-    background-color: #00bdf3;
+    background-color: #dacdff;
     color: #fff;
 }
 .parent-element {
