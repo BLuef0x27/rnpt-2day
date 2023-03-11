@@ -12,20 +12,20 @@
     <title>Responder &#43; Hashcat :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1678553668" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1678553668" rel="stylesheet">
-    <link href="/css/hybrid.css?1678553668" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1678553668" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1678553668" rel="stylesheet">
-    <link href="/css/auto-complete.css?1678553668" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1678553668" rel="stylesheet">
-    <link href="/css/theme.css?1678553668" rel="stylesheet">
-    <link href="/css/tabs.css?1678553668" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1678553668" rel="stylesheet">
+    <link href="/css/nucleus.css?1678560863" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1678560863" rel="stylesheet">
+    <link href="/css/hybrid.css?1678560863" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678560863" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678560863" rel="stylesheet">
+    <link href="/css/auto-complete.css?1678560863" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1678560863" rel="stylesheet">
+    <link href="/css/theme.css?1678560863" rel="stylesheet">
+    <link href="/css/tabs.css?1678560863" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1678560863" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1678553668"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678560863"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1678553668"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1678553668"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1678560863"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1678560863"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1678553668"></script>
+<script type="text/javascript" src="/js/search.js?1678560863"></script>
 
     
   </div>
@@ -906,11 +906,11 @@
 
 
 
-	<p><img src="./responder.png" alt=""></p>
+	<p><img src="./responder2.png" alt=""></p>
 <h2 id="1-easy-creds-early-on">1. Easy Creds Early On</h2>
 <p>Usually something I&rsquo;ll throw up early as a passive credential harvester and just let it collect what i can while I do host/service discovery.</p>
 <p><code>sudo /opt/Responder/Responder.py -I enp0s10f0</code></p>
-<p><img src="./netntlmhash.png" alt=""></p>
+<p><img src="./netntlmhash2.png" alt=""></p>
 <h2 id="2-hashcat-ftw">2. Hashcat FTW!</h2>
 <p>You&rsquo;ll get all sorts of data back from Responder and not all of it will be useful to you.  <em>NTLMv2-SSP</em> hashes can be cracked using a dictionary attack provided you have a good wordlist.</p>
 <p>Catptured hashes are located in the <em>/opt/Responder/logs</em> directory</p>
@@ -948,11 +948,11 @@
 <p>We can tell from this line <em>Recovered&hellip;&hellip;..: 1/1 (100.00%) Digests</em> That hashcat was able to break the password.  And if you look above the clear-text password is acctually displayed to you in a less than obvious part of the screen.
 You can grab this clear-text value at any time with</p>
 <p><code>hashcat -m 5600 SMB-NTLMv2-SSP-fe80::a9cb:9e69:758d:bf41.txt --show</code>
-<img src="./cracked.png" alt=""></p>
+<img src="./cracked2.png" alt=""></p>
 <h3 id="22-active-directory-credentials">2.2 Active Directory Credentials</h3>
 <ul>
-<li>Username: <code>sciencerocks\richard.f</code></li>
-<li>Password: <code>Security24-7</code></li>
+<li>Username: <em>sciencerocks\richard.f</em></li>
+<li>Password: <em>Security24-7</em></li>
 </ul>
 <h2 id="3-additional-reading">3. Additional Reading</h2>
 <p>This technique was first brought to my attention by Tim Medin from Red Siege.  Tim wrote the original <em>nbns_spoof.rb</em> Metasploit module.
@@ -1441,19 +1441,19 @@ His research into discovering this attack vector is written here and you should 
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1678553668"></script>
-    <script src="/js/perfect-scrollbar.min.js?1678553668"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1678553668"></script>
-    <script src="/js/jquery.sticky.js?1678553668"></script>
-    <script src="/js/featherlight.min.js?1678553668"></script>
-    <script src="/js/highlight.pack.js?1678553668"></script>
+    <script src="/js/clipboard.min.js?1678560863"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678560863"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678560863"></script>
+    <script src="/js/jquery.sticky.js?1678560863"></script>
+    <script src="/js/featherlight.min.js?1678560863"></script>
+    <script src="/js/highlight.pack.js?1678560863"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1678553668"></script>
-    <script src="/js/learn.js?1678553668"></script>
-    <script src="/js/hugo-learn.js?1678553668"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678560863"></script>
+    <script src="/js/learn.js?1678560863"></script>
+    <script src="/js/hugo-learn.js?1678560863"></script>
     
         
-            <script src="/mermaid/mermaid.js?1678553668"></script>
+            <script src="/mermaid/mermaid.js?1678560863"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

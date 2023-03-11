@@ -3,9 +3,9 @@ title = "CrackMapExec"
 weight = 50
 +++
 
-## Windows Enumeration
-CrackMapExec is a fantastic tool created by POrchetta Industries for enumerating and attacking Active Directory environments.
-We can leverage the `hosts/windows.txt` file to learn more about our target environment.
+## 1. Windows Enumeration
+CrackMapExec is a fantastic tool created by Porchetta Industries for enumerating and attacking Active Directory environments.
+We can leverage the *hosts/windows.txt* file to learn more about our target environment.
 
 *  **Wiki** [https://wiki.porchetta.industries/](https://wiki.porchetta.industries/)S
 *  **GitHub** [https://github.com/Porchetta-Industries/CrackMapExec](https://github.com/Porchetta-Industries/CrackMapExec)

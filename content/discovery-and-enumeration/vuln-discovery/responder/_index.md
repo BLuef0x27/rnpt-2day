@@ -4,14 +4,14 @@ menuTitle = "Responder"
 weight = 40
 +++
 
-![](./responder.png)
+![](./responder2.png)
 
 ## 1. Easy Creds Early On
 Usually something I'll throw up early as a passive credential harvester and just let it collect what i can while I do host/service discovery.
 
 `sudo /opt/Responder/Responder.py -I enp0s10f0`
 
-![](./netntlmhash.png)
+![](./netntlmhash2.png)
 
 ## 2. Hashcat FTW!
 You'll get all sorts of data back from Responder and not all of it will be useful to you.  *NTLMv2-SSP* hashes can be cracked using a dictionary attack provided you have a good wordlist.
@@ -67,12 +67,12 @@ We can tell from this line *Recovered........: 1/1 (100.00%) Digests* That hashc
 You can grab this clear-text value at any time with
 
 `hashcat -m 5600 SMB-NTLMv2-SSP-fe80::a9cb:9e69:758d:bf41.txt --show`
-![](./cracked.png)
+![](./cracked2.png)
 
 ### 2.2 Active Directory Credentials
 
-* Username: `sciencerocks\richard.f`
-* Password: `Security24-7`
+* Username: *sciencerocks\richard.f*
+* Password: *Security24-7*
 
 ## 3. Additional Reading
 This technique was first brought to my attention by Tim Medin from Red Siege.  Tim wrote the original *nbns_spoof.rb* Metasploit module.
