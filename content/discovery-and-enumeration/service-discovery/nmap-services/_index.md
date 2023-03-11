@@ -61,3 +61,13 @@ parsenmap scans/tcp-all.xml | column -t -s $'\t'
 ```
 
 ![](./parsenmap.png)
+
+### 3.1 Protocol-specific Target Lists
+Here's a secret sauce *#protip*.  It's a good idea to split out your IP address list into protocol groupings.
+For example you can create a file called `hosts/windows.txt` containing the IP addresses of hosts with port *445* open.  
+Or a file called `hosts/mssql.txt` for every host with port *1433* open.
+What this does is allow you to feed these files as input into other tools which you'll use to test for protocol specific attack vectors later on.
+
+```bash
+parsenmap scans/tcp-all.xml | grep 445 | cut -f1 | sort -u > hosts/windows.txt
+```
