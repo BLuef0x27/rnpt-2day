@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SMB Shares on Real Network Penetration Testing</title>
-    <link>/discovery-and-enumeration/vuln-discovery/smbclient/</link>
+    <link>/discovery-and-enumeration/vuln-discovery/smbshares/</link>
     <description>Recent content in SMB Shares on Real Network Penetration Testing</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="/discovery-and-enumeration/vuln-discovery/smbclient/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="/discovery-and-enumeration/vuln-discovery/smbshares/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
