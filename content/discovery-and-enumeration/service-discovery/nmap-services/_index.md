@@ -6,7 +6,7 @@ weight = 30
 
 ![](./nmap2.png)
 
-## 1. Comon TCP Ports
+## 1. Common TCP Ports
 Sometimes you have to perform service discovery against so many assets that it makes sense to first scan the most common ports.
 Nmap has a flag specifically for this use case *--top-ports [number]*.
 

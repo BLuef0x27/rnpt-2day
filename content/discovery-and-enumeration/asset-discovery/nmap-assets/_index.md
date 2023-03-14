@@ -51,7 +51,7 @@ grep "open" scans/rmisweep.gnmap | cut -d " " -f2 | sort -u > hosts/rmi.txt
 ## 3. Subnet hunting
 What if the client has a Class A */8* network and with 16.7Mil possible IPs and has no idea where everything is?  No problem!
 The logic here is that hypothetically speaking, each */24* subnet is going to have a gateway on the *.1* node.  
-So isntead of checking for 16 million possible IPs we only need to check for 65 thousand possible gateways.
+So instead of checking for 16 million possible IPs we only need to check for 65 thousand possible gateways.
 
 > **Warning**
 > DO NOT run this scan, I'll explain :)

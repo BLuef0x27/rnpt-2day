@@ -46,6 +46,8 @@
   </url><url>
     <loc>/discovery-and-enumeration/vuln-discovery/responder/</loc>
   </url><url>
+    <loc>/discovery-and-enumeration/service-discovery/webshot/</loc>
+  </url><url>
     <loc>/discovery-and-enumeration/vuln-discovery/crackmapexec/</loc>
   </url><url>
     <loc>/discovery-and-enumeration/vuln-discovery/smbclient/</loc>
