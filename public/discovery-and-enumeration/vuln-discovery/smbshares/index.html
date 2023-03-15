@@ -12,20 +12,20 @@
     <title>SMB Shares :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1678828395" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1678828395" rel="stylesheet">
-    <link href="/css/hybrid.css?1678828395" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1678828395" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1678828395" rel="stylesheet">
-    <link href="/css/auto-complete.css?1678828395" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1678828395" rel="stylesheet">
-    <link href="/css/theme.css?1678828395" rel="stylesheet">
-    <link href="/css/tabs.css?1678828395" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1678828395" rel="stylesheet">
+    <link href="/css/nucleus.css?1678909646" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1678909646" rel="stylesheet">
+    <link href="/css/hybrid.css?1678909646" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678909646" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678909646" rel="stylesheet">
+    <link href="/css/auto-complete.css?1678909646" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1678909646" rel="stylesheet">
+    <link href="/css/theme.css?1678909646" rel="stylesheet">
+    <link href="/css/tabs.css?1678909646" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1678909646" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1678828395"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678909646"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1678828395"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1678828395"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1678909646"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1678909646"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1678828395"></script>
+<script type="text/javascript" src="/js/search.js?1678909646"></script>
 
     
   </div>
@@ -874,7 +874,17 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-accessing-from-commandline">1. Accessing From Commandline</a>
+      <ul>
+        <li><a href="#11-basic-usage">1.1 Basic Usage</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-gui-file-browser">2. GUI File Browser</a></li>
+    <li><a href="#3-smb-spidering">3. SMB Spidering</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -898,7 +908,75 @@
 
 
 
-	
+	<p><img src="./sharecare.png" alt=""></p>
+<h2 id="1-accessing-from-commandline">1. Accessing From Commandline</h2>
+<p>When in doubt, one of the quickest/easiest ways to connect to an SMB share is to use the <em>smbclient</em> commandline utility.</p>
+<p><code>smbclient --help</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Usage: smbclient <span style="color:#f92672">[</span>OPTIONS<span style="color:#f92672">]</span> service &lt;password&gt;
+</span></span><span style="display:flex;"><span>  -M, --message<span style="color:#f92672">=</span>HOST                           Send message
+</span></span><span style="display:flex;"><span>  -I, --ip-address<span style="color:#f92672">=</span>IP                          Use this IP to connect to
+</span></span><span style="display:flex;"><span>  -E, --stderr                                 Write messages to stderr instead of stdout
+</span></span><span style="display:flex;"><span>  -L, --list<span style="color:#f92672">=</span>HOST                              Get a list of shares available on a host
+</span></span><span style="display:flex;"><span>  -T, --tar<span style="color:#f92672">=</span>&lt;c|x&gt;IXFvgbNan                     Command line tar
+</span></span><span style="display:flex;"><span>  -D, --directory<span style="color:#f92672">=</span>DIR                          Start from directory
+</span></span><span style="display:flex;"><span>  -c, --command<span style="color:#f92672">=</span>STRING                         Execute semicolon separated commands
+</span></span><span style="display:flex;"><span>  -b, --send-buffer<span style="color:#f92672">=</span>BYTES                      Changes the transmit/send buffer
+</span></span><span style="display:flex;"><span>  -t, --timeout<span style="color:#f92672">=</span>SECONDS                        Changes the per-operation timeout
+</span></span><span style="display:flex;"><span>  -p, --port<span style="color:#f92672">=</span>PORT                              Port to connect to
+</span></span><span style="display:flex;"><span>  -g, --grepable                               Produce grepable output
+</span></span><span style="display:flex;"><span>  -q, --quiet                                  Suppress help message
+</span></span><span style="display:flex;"><span>  -B, --browse                                 Browse SMB servers using DNS
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Help options:
+</span></span><span style="display:flex;"><span>  -?, --help                                   Show this help message
+</span></span><span style="display:flex;"><span>      --usage                                  Display brief usage message
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Common Samba options:
+</span></span><span style="display:flex;"><span>  -d, --debuglevel<span style="color:#f92672">=</span>DEBUGLEVEL                  Set debug level
+</span></span><span style="display:flex;"><span>      --debug-stdout                           Send debug output to standard output
+</span></span><span style="display:flex;"><span>  -s, --configfile<span style="color:#f92672">=</span>CONFIGFILE                  Use alternative configuration file
+</span></span><span style="display:flex;"><span>      --option<span style="color:#f92672">=</span>name<span style="color:#f92672">=</span>value                      Set smb.conf option from command line
+</span></span><span style="display:flex;"><span>  -l, --log-basename<span style="color:#f92672">=</span>LOGFILEBASE               Basename <span style="color:#66d9ef">for</span> log/debug files
+</span></span><span style="display:flex;"><span>      --leak-report                            enable talloc leak reporting on exit
+</span></span><span style="display:flex;"><span>      --leak-report-full                       enable full talloc leak reporting on exit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Connection options:
+</span></span><span style="display:flex;"><span>  -R, --name-resolve<span style="color:#f92672">=</span>NAME-RESOLVE-ORDER        Use these name resolution services only
+</span></span><span style="display:flex;"><span>  -O, --socket-options<span style="color:#f92672">=</span>SOCKETOPTIONS           socket options to use
+</span></span><span style="display:flex;"><span>  -m, --max-protocol<span style="color:#f92672">=</span>MAXPROTOCOL               Set max protocol level
+</span></span><span style="display:flex;"><span>  -n, --netbiosname<span style="color:#f92672">=</span>NETBIOSNAME                Primary netbios name
+</span></span><span style="display:flex;"><span>      --netbios-scope<span style="color:#f92672">=</span>SCOPE                    Use this Netbios scope
+</span></span><span style="display:flex;"><span>  -W, --workgroup<span style="color:#f92672">=</span>WORKGROUP                    Set the workgroup name
+</span></span><span style="display:flex;"><span>      --realm<span style="color:#f92672">=</span>REALM                            Set the realm name
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Credential options:
+</span></span><span style="display:flex;"><span>  -U, --user<span style="color:#f92672">=[</span>DOMAIN/<span style="color:#f92672">]</span>USERNAME<span style="color:#f92672">[</span>%PASSWORD<span style="color:#f92672">]</span>      Set the network username
+</span></span><span style="display:flex;"><span>  -N, --no-pass                                Do not ask <span style="color:#66d9ef">for</span> a password
+</span></span><span style="display:flex;"><span>      --password<span style="color:#f92672">=</span>STRING                        Password
+</span></span><span style="display:flex;"><span>      --pw-nt-hash                             The supplied password is the NT hash
+</span></span><span style="display:flex;"><span>  -A, --authentication-file<span style="color:#f92672">=</span>FILE               Get the credentials from a file
+</span></span><span style="display:flex;"><span>  -P, --machine-pass                           Use stored machine account password
+</span></span><span style="display:flex;"><span>      --simple-bind-dn<span style="color:#f92672">=</span>DN                      DN to use <span style="color:#66d9ef">for</span> a simple bind
+</span></span><span style="display:flex;"><span>      --use-kerberos<span style="color:#f92672">=</span>desired|required|off      Use Kerberos authentication
+</span></span><span style="display:flex;"><span>      --use-krb5-ccache<span style="color:#f92672">=</span>CCACHE                 Credentials cache location <span style="color:#66d9ef">for</span> Kerberos
+</span></span><span style="display:flex;"><span>      --use-winbind-ccache                     Use the winbind ccache <span style="color:#66d9ef">for</span> authentication
+</span></span><span style="display:flex;"><span>      --client-protection<span style="color:#f92672">=</span>sign|encrypt|off     Configure used protection <span style="color:#66d9ef">for</span> client
+</span></span><span style="display:flex;"><span>                                               connections
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Deprecated legcacy options:
+</span></span><span style="display:flex;"><span>  -k, --kerberos                               DEPRECATED: Migrate to --use-kerberos
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Version options:
+</span></span><span style="display:flex;"><span>  -V, --version                                Print version
+</span></span></code></pre></div><h3 id="11-basic-usage">1.1 Basic Usage</h3>
+<p>To connect to an SMB share use the following command:</p>
+<p><code>smbclient \\\\192.168.0.130\\xamp -U &quot;sciencerocks\richard.f&quot; -p</code></p>
+<h2 id="2-gui-file-browser">2. GUI File Browser</h2>
+<p>Most GUI file browsers have a built in capability to connect to an smb share with something like <em>smb://[ip address]</em></p>
+<h2 id="3-smb-spidering">3. SMB Spidering</h2>
+<p>Manualy browsing with <em>smbclient</em> or a GUI file explorer works well for small shares.  If you have access to something substantial like the <em>C$</em> Windows hare for example.
+You might consider using an automated tool to spider (recursivly browse) all directories in the share.  Metasploit has a great module for this.</p>
+
 
 
 
@@ -1389,19 +1467,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1678828395"></script>
-    <script src="/js/perfect-scrollbar.min.js?1678828395"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1678828395"></script>
-    <script src="/js/jquery.sticky.js?1678828395"></script>
-    <script src="/js/featherlight.min.js?1678828395"></script>
-    <script src="/js/highlight.pack.js?1678828395"></script>
+    <script src="/js/clipboard.min.js?1678909646"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678909646"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678909646"></script>
+    <script src="/js/jquery.sticky.js?1678909646"></script>
+    <script src="/js/featherlight.min.js?1678909646"></script>
+    <script src="/js/highlight.pack.js?1678909646"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1678828395"></script>
-    <script src="/js/learn.js?1678828395"></script>
-    <script src="/js/hugo-learn.js?1678828395"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678909646"></script>
+    <script src="/js/learn.js?1678909646"></script>
+    <script src="/js/hugo-learn.js?1678909646"></script>
     
         
-            <script src="/mermaid/mermaid.js?1678828395"></script>
+            <script src="/mermaid/mermaid.js?1678909646"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
