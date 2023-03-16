@@ -12,20 +12,20 @@
     <title>SMB Shares :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1678909646" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1678909646" rel="stylesheet">
-    <link href="/css/hybrid.css?1678909646" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1678909646" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1678909646" rel="stylesheet">
-    <link href="/css/auto-complete.css?1678909646" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1678909646" rel="stylesheet">
-    <link href="/css/theme.css?1678909646" rel="stylesheet">
-    <link href="/css/tabs.css?1678909646" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1678909646" rel="stylesheet">
+    <link href="/css/nucleus.css?1678983047" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1678983047" rel="stylesheet">
+    <link href="/css/hybrid.css?1678983047" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678983047" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678983047" rel="stylesheet">
+    <link href="/css/auto-complete.css?1678983047" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1678983047" rel="stylesheet">
+    <link href="/css/theme.css?1678983047" rel="stylesheet">
+    <link href="/css/tabs.css?1678983047" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1678983047" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1678909646"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678983047"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1678909646"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1678909646"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1678983047"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1678983047"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1678909646"></script>
+<script type="text/javascript" src="/js/search.js?1678983047"></script>
 
     
   </div>
@@ -882,7 +882,11 @@
       </ul>
     </li>
     <li><a href="#2-gui-file-browser">2. GUI File Browser</a></li>
-    <li><a href="#3-smb-spidering">3. SMB Spidering</a></li>
+    <li><a href="#3-enumerating-smb-shares">3. Enumerating SMB Shares</a>
+      <ul>
+        <li><a href="#31-spidering-smb-shares">3.1. Spidering SMB Shares</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -970,13 +974,135 @@
 </span></span><span style="display:flex;"><span>  -V, --version                                Print version
 </span></span></code></pre></div><h3 id="11-basic-usage">1.1 Basic Usage</h3>
 <p>To connect to an SMB share use the following command:</p>
-<p><code>smbclient \\\\192.168.0.130\\xamp -U &quot;sciencerocks\richard.f&quot; -p</code></p>
+<p><code>smbclient '\\192.168.0.130\xamp' -U 'sciencerocks\richard.f' -p</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Password <span style="color:#66d9ef">for</span> <span style="color:#f92672">[</span>SCIENCEROCKS<span style="color:#ae81ff">\r</span>ichard.f<span style="color:#f92672">]</span>:
+</span></span><span style="display:flex;"><span>Try <span style="color:#e6db74">&#34;help&#34;</span> to get a list of possible commands.
+</span></span><span style="display:flex;"><span>smb: <span style="color:#ae81ff">\&gt;</span> dir
+</span></span><span style="display:flex;"><span>  .                                   D        <span style="color:#ae81ff">0</span>  Wed Mar <span style="color:#ae81ff">15</span> 15:01:51 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  ..                                  D        <span style="color:#ae81ff">0</span>  Mon Feb <span style="color:#ae81ff">20</span> 11:59:07 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  anonymous                           D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:59:03 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  apache                              D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:59:17 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  apache_start.bat                    A      <span style="color:#ae81ff">436</span>  Fri Jun  <span style="color:#ae81ff">7</span> 06:15:44 <span style="color:#ae81ff">2013</span>
+</span></span><span style="display:flex;"><span>  apache_stop.bat                     A      <span style="color:#ae81ff">190</span>  Tue Oct  <span style="color:#ae81ff">1</span> 02:13:32 <span style="color:#ae81ff">2019</span>
+</span></span><span style="display:flex;"><span>  catalina_service.bat                A    <span style="color:#ae81ff">10324</span>  Mon Apr  <span style="color:#ae81ff">5</span> 11:16:20 <span style="color:#ae81ff">2021</span>
+</span></span><span style="display:flex;"><span>  catalina_start.bat                  A     <span style="color:#ae81ff">3766</span>  Mon Apr  <span style="color:#ae81ff">5</span> 11:17:38 <span style="color:#ae81ff">2021</span>
+</span></span><span style="display:flex;"><span>  catalina_stop.bat                   A     <span style="color:#ae81ff">3529</span>  Mon Apr  <span style="color:#ae81ff">5</span> 11:17:35 <span style="color:#ae81ff">2021</span>
+</span></span><span style="display:flex;"><span>  cgi-bin                             D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:05:20 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  contrib                             D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:58:56 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  ctlscript.bat                       A     <span style="color:#ae81ff">3499</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:58:50 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  FileZillaFTP                        D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:05:18 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  filezilla_setup.bat                 A       <span style="color:#ae81ff">78</span>  Sat Mar <span style="color:#ae81ff">30</span> 07:29:00 <span style="color:#ae81ff">2013</span>
+</span></span><span style="display:flex;"><span>  filezilla_start.bat                 A      <span style="color:#ae81ff">150</span>  Fri Jun  <span style="color:#ae81ff">7</span> 06:15:48 <span style="color:#ae81ff">2013</span>
+</span></span><span style="display:flex;"><span>  filezilla_stop.bat                  A      <span style="color:#ae81ff">149</span>  Fri Jun  <span style="color:#ae81ff">7</span> 06:15:48 <span style="color:#ae81ff">2013</span>
+</span></span><span style="display:flex;"><span>  htdocs                              D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:59:03 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  img                                 D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:58:50 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  install                             D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:05:17 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  killprocess.bat                     A      <span style="color:#ae81ff">299</span>  Wed Jun <span style="color:#ae81ff">15</span> 11:07:39 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>  licenses                            D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:58:52 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  locale                              D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:58:52 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  mailoutput                          D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:58:52 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  mailtodisk                          D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:59:14 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  MercuryMail                         D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:05:18 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  mercury_start.bat                   A      <span style="color:#ae81ff">136</span>  Fri Jun  <span style="color:#ae81ff">7</span> 06:15:48 <span style="color:#ae81ff">2013</span>
+</span></span><span style="display:flex;"><span>  mercury_stop.bat                    A       <span style="color:#ae81ff">60</span>  Fri Jun  <span style="color:#ae81ff">7</span> 06:15:48 <span style="color:#ae81ff">2013</span>
+</span></span><span style="display:flex;"><span>  mysql                               D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:59:40 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  mysql_start.bat                     A      <span style="color:#ae81ff">471</span>  Mon Jun  <span style="color:#ae81ff">3</span> 06:39:00 <span style="color:#ae81ff">2019</span>
+</span></span><span style="display:flex;"><span>  mysql_stop.bat                      A      <span style="color:#ae81ff">270</span>  Tue Oct  <span style="color:#ae81ff">1</span> 02:13:56 <span style="color:#ae81ff">2019</span>
+</span></span><span style="display:flex;"><span>  passwords.txt                       A      <span style="color:#ae81ff">824</span>  Mon Mar <span style="color:#ae81ff">13</span> 06:04:44 <span style="color:#ae81ff">2017</span>
+</span></span><span style="display:flex;"><span>  perl                                D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:01:21 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  php                                 D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:05:20 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  phpMyAdmin                          D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:04:15 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  properties.ini                      A      <span style="color:#ae81ff">951</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:04:19 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  readme_de.txt                       A     <span style="color:#ae81ff">7496</span>  Thu Dec <span style="color:#ae81ff">29</span> 12:57:59 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>  readme_en.txt                       A     <span style="color:#ae81ff">7366</span>  Thu Dec <span style="color:#ae81ff">29</span> 12:57:59 <span style="color:#ae81ff">2022</span>
+</span></span><span style="display:flex;"><span>  sendmail                            D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:04:17 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  service.exe                         A    <span style="color:#ae81ff">60928</span>  Sat Mar <span style="color:#ae81ff">30</span> 07:29:00 <span style="color:#ae81ff">2013</span>
+</span></span><span style="display:flex;"><span>  setup_xampp.bat                     A     <span style="color:#ae81ff">1255</span>  Sat Mar <span style="color:#ae81ff">30</span> 07:29:00 <span style="color:#ae81ff">2013</span>
+</span></span><span style="display:flex;"><span>  src                                 D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:58:52 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  test_php.bat                        A     <span style="color:#ae81ff">1671</span>  Sun Nov <span style="color:#ae81ff">29</span> 07:38:37 <span style="color:#ae81ff">2020</span>
+</span></span><span style="display:flex;"><span>  tmp                                 D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:58:56 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  tomcat                              D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:00:09 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  uninstall.dat                       A   <span style="color:#ae81ff">264055</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:05:54 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  uninstall.exe                       A  <span style="color:#ae81ff">6579464</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:05:54 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  webalizer                           D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:05:20 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  webdav                              D        <span style="color:#ae81ff">0</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:59:14 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  xampp-control.exe                   A  <span style="color:#ae81ff">3368448</span>  Tue Apr  <span style="color:#ae81ff">6</span> 06:38:27 <span style="color:#ae81ff">2021</span>
+</span></span><span style="display:flex;"><span>  xampp-control.ini                   A     <span style="color:#ae81ff">1195</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:13:01 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  xampp-control.log                   A     <span style="color:#ae81ff">2153</span>  Sat Feb <span style="color:#ae81ff">11</span> 15:15:17 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  xampp_shell.bat                     A     <span style="color:#ae81ff">1084</span>  Sat Feb <span style="color:#ae81ff">11</span> 14:59:14 <span style="color:#ae81ff">2023</span>
+</span></span><span style="display:flex;"><span>  xampp_start.exe                     A   <span style="color:#ae81ff">118784</span>  Sat Mar <span style="color:#ae81ff">30</span> 07:29:00 <span style="color:#ae81ff">2013</span>
+</span></span><span style="display:flex;"><span>  xampp_stop.exe                      A   <span style="color:#ae81ff">118784</span>  Sat Mar <span style="color:#ae81ff">30</span> 07:29:00 <span style="color:#ae81ff">2013</span>
+</span></span></code></pre></div><p>Form here you can use FTP style <em>get</em> and <em>put</em> commands to download or upload files to/from the share.</p>
 <h2 id="2-gui-file-browser">2. GUI File Browser</h2>
-<p>Most GUI file browsers have a built in capability to connect to an smb share with something like <em>smb://[ip address]</em></p>
-<h2 id="3-smb-spidering">3. SMB Spidering</h2>
-<p>Manualy browsing with <em>smbclient</em> or a GUI file explorer works well for small shares.  If you have access to something substantial like the <em>C$</em> Windows hare for example.
-You might consider using an automated tool to spider (recursivly browse) all directories in the share.  Metasploit has a great module for this.</p>
-
+<p>Most GUI file browsers have a built in capability to connect to an smb share with something like <em>smb://[ip address]</em>.  Open up the Ubuntu file browser
+and click on <em>+ Other Locations</em> from the left navigation. Then type in <em>smb://192.168.0.130/xampp</em> and click Connect.</p>
+<p><img src="./smbgui01.png" alt=""></p>
+<p>Enter the Active Directory user credentials</p>
+<p><img src="./smbgui02.png" alt=""></p>
+<p>Now you can see the files in the share as if they were located on your own machine.</p>
+<p><img src="./smbgui03.png" alt=""></p>
+<h2 id="3-enumerating-smb-shares">3. Enumerating SMB Shares</h2>
+<p>Now that we know we have valid AD credentials one of the next things we should do is take a look at any SMB shares we have access to to see if there is anything we can compromise.</p>
+<p><code>crackmapexec smb hosts/windows.txt -u richard.f -p &quot;Security24-7&quot; --shares</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Sciencerocks.local<span style="color:#ae81ff">\r</span>ichard.f:Security24-7 
+</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Sciencerocks.local<span style="color:#ae81ff">\r</span>ichard.f:Security24-7 
+</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  Share           Permissions     Remark
+</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  -----           -----------     ------
+</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  ADMIN$                          Remote Admin
+</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  C$                              Default share
+</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  IPC$            READ            Remote IPC
+</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Sciencerocks.local<span style="color:#ae81ff">\r</span>ichard.f:Security24-7 
+</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> <span style="color:#ae81ff">\r</span>ichard.f:Security24-7 
+</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
+</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  Share           Permissions     Remark
+</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  -----           -----------     ------
+</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  print$                          Printer Drivers
+</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  IPC$                            IPC Service <span style="color:#f92672">(</span>kepler-linsrv14 server <span style="color:#f92672">(</span>Samba, Ubuntu<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  Share           Permissions     Remark
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  -----           -----------     ------
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  ADMIN$                          Remote Admin
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  C$                              Default share
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  IPC$            READ            Remote IPC
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  Users           READ            
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  xampp           READ,WRITE      
+</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
+</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    Share           Permissions     Remark
+</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    -----           -----------     ------
+</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    ADMIN$                          Remote Admin
+</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    C$                              Default share
+</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    IPC$            READ            Remote IPC
+</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    NETLOGON        READ            Logon server share 
+</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    SYSVOL          READ            Logon server share
+</span></span></code></pre></div><p>Take note of the <em>xampp</em> share which our compromised user account has both READ and WRITE access to!</p>
+<h3 id="31-spidering-smb-shares">3.1. Spidering SMB Shares</h3>
+<p>We can also use CrackMapExec to spider though
+a particular share searching for interesting filenames.  For example:</p>
+<p><code>cme smb 192.168.0.130 -u richard.f -p Security24-7 --spider xampp --pattern passw</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started spidering
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Spidering .
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/passwords.txt <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:824<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/apache/bin/htpasswd.exe <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:119296<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/reset-mysql-password.html <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:6476<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/reset-mysql-password.pdf <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:61387<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/reset-mysql-password.pdfmarks <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:215<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/images/reset-mysql-password <span style="color:#f92672">[</span>dir<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/MercuryMail/MAIL/Admin/PASSWD.PM <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:66<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/MercuryMail/MAIL/newuser/PASSWD.PM <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:71<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/MercuryMail/MAIL/postmaster/PASSWD.PM <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:66<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/php/pear/File/Passwd <span style="color:#f92672">[</span>dir<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/php/pear/File/Passwd.php <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:13548<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/libraries/classes/UserPassword.php <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:7024<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/libraries/classes/Controllers/UserPasswordController.php <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:3379<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/templates/user_password.twig <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:83<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/templates/server/privileges/change_password.twig <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:3401<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/bootstrap/img/password.svg <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:342<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/metro/img/s_passwd.png <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:1034<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/original/img/s_passwd.png <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:331<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/pmahomme/img/s_passwd.png <span style="color:#f92672">[</span>lastm:<span style="color:#e6db74">&#39;2023-03-11 13:07&#39;</span> size:331<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  <span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Done spidering <span style="color:#f92672">(</span>Completed in 149.30476093292236<span style="color:#f92672">)</span>
+</span></span></code></pre></div>
 
 
 
@@ -1467,19 +1593,19 @@ You might consider using an automated tool to spider (recursivly browse) all dir
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1678909646"></script>
-    <script src="/js/perfect-scrollbar.min.js?1678909646"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1678909646"></script>
-    <script src="/js/jquery.sticky.js?1678909646"></script>
-    <script src="/js/featherlight.min.js?1678909646"></script>
-    <script src="/js/highlight.pack.js?1678909646"></script>
+    <script src="/js/clipboard.min.js?1678983047"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678983047"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678983047"></script>
+    <script src="/js/jquery.sticky.js?1678983047"></script>
+    <script src="/js/featherlight.min.js?1678983047"></script>
+    <script src="/js/highlight.pack.js?1678983047"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1678909646"></script>
-    <script src="/js/learn.js?1678909646"></script>
-    <script src="/js/hugo-learn.js?1678909646"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678983047"></script>
+    <script src="/js/learn.js?1678983047"></script>
+    <script src="/js/hugo-learn.js?1678983047"></script>
     
         
-            <script src="/mermaid/mermaid.js?1678909646"></script>
+            <script src="/mermaid/mermaid.js?1678983047"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });

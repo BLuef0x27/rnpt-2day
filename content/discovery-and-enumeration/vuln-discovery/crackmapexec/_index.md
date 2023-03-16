@@ -41,48 +41,7 @@ SMB         192.168.0.100   445    EINSTEIN-DC01    [+] Sciencerocks.local\richa
 This output confirms that the AD credentials we cracked are valid.  The *[+]* indicates that CrackMapExec successfuly logged in to each machine.
 However, the missing *(Pwn3d!)* badge lets us know we do not have Admin on any of these systems.
 
-## 3. Enumerating SMB Shares
-Now that we know we have valid AD credentials one of the next things we should do is take a look at any SMB shares we have access to to see if there is anything we can compromise.
-
-`crackmapexec smb hosts/windows.txt -u richard.f -p "Security24-7" --shares`
-
-```bash
-SMB         192.168.0.120   445    HAWKINGWINSRV19  [+] Sciencerocks.local\richard.f:Security24-7 
-SMB         192.168.0.120   445    HAWKINGWINSRV19  [+] Enumerated shares
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [+] Sciencerocks.local\richard.f:Security24-7 
-SMB         192.168.0.120   445    HAWKINGWINSRV19  Share           Permissions     Remark
-SMB         192.168.0.120   445    HAWKINGWINSRV19  -----           -----------     ------
-SMB         192.168.0.120   445    HAWKINGWINSRV19  ADMIN$                          Remote Admin
-SMB         192.168.0.120   445    HAWKINGWINSRV19  C$                              Default share
-SMB         192.168.0.120   445    HAWKINGWINSRV19  IPC$            READ            Remote IPC
-SMB         192.168.0.100   445    EINSTEIN-DC01    [+] Sciencerocks.local\richard.f:Security24-7 
-SMB         192.168.0.104   445    KEPLER-LINSRV14  [+] \richard.f:Security24-7 
-SMB         192.168.0.104   445    KEPLER-LINSRV14  [+] Enumerated shares
-SMB         192.168.0.104   445    KEPLER-LINSRV14  Share           Permissions     Remark
-SMB         192.168.0.104   445    KEPLER-LINSRV14  -----           -----------     ------
-SMB         192.168.0.104   445    KEPLER-LINSRV14  print$                          Printer Drivers
-SMB         192.168.0.104   445    KEPLER-LINSRV14  IPC$                            IPC Service (kepler-linsrv14 server (Samba, Ubuntu))
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [+] Enumerated shares
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  Share           Permissions     Remark
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  -----           -----------     ------
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  ADMIN$                          Remote Admin
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  C$                              Default share
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  IPC$            READ            Remote IPC
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  Users           READ            
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  xampp           READ,WRITE      
-SMB         192.168.0.100   445    EINSTEIN-DC01    [+] Enumerated shares
-SMB         192.168.0.100   445    EINSTEIN-DC01    Share           Permissions     Remark
-SMB         192.168.0.100   445    EINSTEIN-DC01    -----           -----------     ------
-SMB         192.168.0.100   445    EINSTEIN-DC01    ADMIN$                          Remote Admin
-SMB         192.168.0.100   445    EINSTEIN-DC01    C$                              Default share
-SMB         192.168.0.100   445    EINSTEIN-DC01    IPC$            READ            Remote IPC
-SMB         192.168.0.100   445    EINSTEIN-DC01    NETLOGON        READ            Logon server share 
-SMB         192.168.0.100   445    EINSTEIN-DC01    SYSVOL          READ            Logon server share
-```
-
-Take note of the *xampp* share which our compromised user account has both READ and WRITE access to!
-
-## 4. Enumerating Active Directory Users
+## 3. Enumerating Active Directory Users
 We can also use crackmapexec to identify valid user accounts which could be later targeted with password guessing should we decide to go that route.
 
 `crackmapexec smb hosts/windows.txt -u richard.f -p "Security24-7" --users`
@@ -107,4 +66,34 @@ SMB         192.168.0.104   445    KEPLER-LINSRV14  [+] Enumerated domain user(s
 SMB         192.168.0.100   445    EINSTEIN-DC01    Sciencerocks.local\marie.c                        
 SMB         192.168.0.100   445    EINSTEIN-DC01    Sciencerocks.local\server.admin                   
 SMB         192.168.0.100   445    EINSTEIN-DC01    Sciencerocks.local\neil.degrasse        
+```
+
+## 4. Additional Enumeration Flags (requires admin)
+Once you obtain admin level creds to a host check out these other reall useful flags:
+
+```bash
+Mapping/Enumeration:
+  Options for Mapping/Enumerating
+
+  --shares              enumerate shares and access
+  --sessions            enumerate active sessions
+  --disks               enumerate disks
+  --loggedon-users-filter LOGGEDON_USERS_FILTER
+                        only search for specific user, works with regex
+  --loggedon-users      enumerate logged on users
+  --users [USER]        enumerate domain users, if a user is specified than
+                        only its information is queried.
+  --groups [GROUP]      enumerate domain groups, if a group is specified than
+                        its members are enumerated
+  --computers [COMPUTER]
+                        enumerate computer users
+  --local-groups [GROUP]
+                        enumerate local groups, if a group is specified then
+                        its members are enumerated
+  --pass-pol            dump password policy
+  --rid-brute [MAX_RID]
+                        enumerate users by bruteforcing RID's (default: 4000)
+  --wmi QUERY           issues the specified WMI query
+  --wmi-namespace NAMESPACE
+                        WMI Namespace (default: root\cimv2)
 ```

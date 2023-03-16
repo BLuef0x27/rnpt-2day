@@ -12,20 +12,20 @@
     <title>CrackMapExec :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1678909646" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1678909646" rel="stylesheet">
-    <link href="/css/hybrid.css?1678909646" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1678909646" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1678909646" rel="stylesheet">
-    <link href="/css/auto-complete.css?1678909646" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1678909646" rel="stylesheet">
-    <link href="/css/theme.css?1678909646" rel="stylesheet">
-    <link href="/css/tabs.css?1678909646" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1678909646" rel="stylesheet">
+    <link href="/css/nucleus.css?1678983047" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1678983047" rel="stylesheet">
+    <link href="/css/hybrid.css?1678983047" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678983047" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678983047" rel="stylesheet">
+    <link href="/css/auto-complete.css?1678983047" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1678983047" rel="stylesheet">
+    <link href="/css/theme.css?1678983047" rel="stylesheet">
+    <link href="/css/tabs.css?1678983047" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1678983047" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1678909646"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678983047"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1678909646"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1678909646"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1678983047"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1678983047"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1678909646"></script>
+<script type="text/javascript" src="/js/search.js?1678983047"></script>
 
     
   </div>
@@ -878,8 +878,8 @@
   <ul>
     <li><a href="#1-windows-enumeration">1. Windows Enumeration</a></li>
     <li><a href="#2-testing-ad-credentials">2. Testing AD Credentials</a></li>
-    <li><a href="#3-enumerating-smb-shares">3. Enumerating SMB Shares</a></li>
-    <li><a href="#4-enumerating-active-directory-users">4. Enumerating Active Directory Users</a></li>
+    <li><a href="#3-enumerating-active-directory-users">3. Enumerating Active Directory Users</a></li>
+    <li><a href="#4-additional-enumeration-flags-requires-admin">4. Additional Enumeration Flags (requires admin)</a></li>
   </ul>
 </nav>
     </div>
@@ -934,42 +934,7 @@ We can leverage the <em>hosts/windows.txt</em> file to learn more about our targ
 </span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Sciencerocks.local<span style="color:#ae81ff">\r</span>ichard.f:Security24-7
 </span></span></code></pre></div><p>This output confirms that the AD credentials we cracked are valid.  The <em>[+]</em> indicates that CrackMapExec successfuly logged in to each machine.
 However, the missing <em>(Pwn3d!)</em> badge lets us know we do not have Admin on any of these systems.</p>
-<h2 id="3-enumerating-smb-shares">3. Enumerating SMB Shares</h2>
-<p>Now that we know we have valid AD credentials one of the next things we should do is take a look at any SMB shares we have access to to see if there is anything we can compromise.</p>
-<p><code>crackmapexec smb hosts/windows.txt -u richard.f -p &quot;Security24-7&quot; --shares</code></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Sciencerocks.local<span style="color:#ae81ff">\r</span>ichard.f:Security24-7 
-</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
-</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Sciencerocks.local<span style="color:#ae81ff">\r</span>ichard.f:Security24-7 
-</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  Share           Permissions     Remark
-</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  -----           -----------     ------
-</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  ADMIN$                          Remote Admin
-</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  C$                              Default share
-</span></span><span style="display:flex;"><span>SMB         192.168.0.120   <span style="color:#ae81ff">445</span>    HAWKINGWINSRV19  IPC$            READ            Remote IPC
-</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Sciencerocks.local<span style="color:#ae81ff">\r</span>ichard.f:Security24-7 
-</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> <span style="color:#ae81ff">\r</span>ichard.f:Security24-7 
-</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
-</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  Share           Permissions     Remark
-</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  -----           -----------     ------
-</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  print$                          Printer Drivers
-</span></span><span style="display:flex;"><span>SMB         192.168.0.104   <span style="color:#ae81ff">445</span>    KEPLER-LINSRV14  IPC$                            IPC Service <span style="color:#f92672">(</span>kepler-linsrv14 server <span style="color:#f92672">(</span>Samba, Ubuntu<span style="color:#f92672">))</span>
-</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
-</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  Share           Permissions     Remark
-</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  -----           -----------     ------
-</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  ADMIN$                          Remote Admin
-</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  C$                              Default share
-</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  IPC$            READ            Remote IPC
-</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  Users           READ            
-</span></span><span style="display:flex;"><span>SMB         192.168.0.130   <span style="color:#ae81ff">445</span>    FEYNMAN-WINSRV1  xampp           READ,WRITE      
-</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    <span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Enumerated shares
-</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    Share           Permissions     Remark
-</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    -----           -----------     ------
-</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    ADMIN$                          Remote Admin
-</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    C$                              Default share
-</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    IPC$            READ            Remote IPC
-</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    NETLOGON        READ            Logon server share 
-</span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    SYSVOL          READ            Logon server share
-</span></span></code></pre></div><p>Take note of the <em>xampp</em> share which our compromised user account has both READ and WRITE access to!</p>
-<h2 id="4-enumerating-active-directory-users">4. Enumerating Active Directory Users</h2>
+<h2 id="3-enumerating-active-directory-users">3. Enumerating Active Directory Users</h2>
 <p>We can also use crackmapexec to identify valid user accounts which could be later targeted with password guessing should we decide to go that route.</p>
 <p><code>crackmapexec smb hosts/windows.txt -u richard.f -p &quot;Security24-7&quot; --users</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    <span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> Error enumerating domain users using dc ip 192.168.0.100: unsupported hash type MD4
@@ -991,6 +956,32 @@ However, the missing <em>(Pwn3d!)</em> badge lets us know we do not have Admin o
 </span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    Sciencerocks.local<span style="color:#ae81ff">\m</span>arie.c                        
 </span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    Sciencerocks.local<span style="color:#ae81ff">\s</span>erver.admin                   
 </span></span><span style="display:flex;"><span>SMB         192.168.0.100   <span style="color:#ae81ff">445</span>    EINSTEIN-DC01    Sciencerocks.local<span style="color:#ae81ff">\n</span>eil.degrasse        
+</span></span></code></pre></div><h2 id="4-additional-enumeration-flags-requires-admin">4. Additional Enumeration Flags (requires admin)</h2>
+<p>Once you obtain admin level creds to a host check out these other reall useful flags:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Mapping/Enumeration:
+</span></span><span style="display:flex;"><span>  Options <span style="color:#66d9ef">for</span> Mapping/Enumerating
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  --shares              enumerate shares and access
+</span></span><span style="display:flex;"><span>  --sessions            enumerate active sessions
+</span></span><span style="display:flex;"><span>  --disks               enumerate disks
+</span></span><span style="display:flex;"><span>  --loggedon-users-filter LOGGEDON_USERS_FILTER
+</span></span><span style="display:flex;"><span>                        only search <span style="color:#66d9ef">for</span> specific user, works with regex
+</span></span><span style="display:flex;"><span>  --loggedon-users      enumerate logged on users
+</span></span><span style="display:flex;"><span>  --users <span style="color:#f92672">[</span>USER<span style="color:#f92672">]</span>        enumerate domain users, <span style="color:#66d9ef">if</span> a user is specified than
+</span></span><span style="display:flex;"><span>                        only its information is queried.
+</span></span><span style="display:flex;"><span>  --groups <span style="color:#f92672">[</span>GROUP<span style="color:#f92672">]</span>      enumerate domain groups, <span style="color:#66d9ef">if</span> a group is specified than
+</span></span><span style="display:flex;"><span>                        its members are enumerated
+</span></span><span style="display:flex;"><span>  --computers <span style="color:#f92672">[</span>COMPUTER<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                        enumerate computer users
+</span></span><span style="display:flex;"><span>  --local-groups <span style="color:#f92672">[</span>GROUP<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                        enumerate local groups, <span style="color:#66d9ef">if</span> a group is specified <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>                        its members are enumerated
+</span></span><span style="display:flex;"><span>  --pass-pol            dump password policy
+</span></span><span style="display:flex;"><span>  --rid-brute <span style="color:#f92672">[</span>MAX_RID<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                        enumerate users by bruteforcing RID<span style="color:#960050;background-color:#1e0010">&#39;</span>s <span style="color:#f92672">(</span>default: 4000<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  --wmi QUERY           issues the specified WMI query
+</span></span><span style="display:flex;"><span>  --wmi-namespace NAMESPACE
+</span></span><span style="display:flex;"><span>                        WMI Namespace <span style="color:#f92672">(</span>default: root<span style="color:#ae81ff">\c</span>imv2<span style="color:#f92672">)</span>
 </span></span></code></pre></div>
 
 
@@ -1482,19 +1473,19 @@ However, the missing <em>(Pwn3d!)</em> badge lets us know we do not have Admin o
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1678909646"></script>
-    <script src="/js/perfect-scrollbar.min.js?1678909646"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1678909646"></script>
-    <script src="/js/jquery.sticky.js?1678909646"></script>
-    <script src="/js/featherlight.min.js?1678909646"></script>
-    <script src="/js/highlight.pack.js?1678909646"></script>
+    <script src="/js/clipboard.min.js?1678983047"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678983047"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678983047"></script>
+    <script src="/js/jquery.sticky.js?1678983047"></script>
+    <script src="/js/featherlight.min.js?1678983047"></script>
+    <script src="/js/highlight.pack.js?1678983047"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1678909646"></script>
-    <script src="/js/learn.js?1678909646"></script>
-    <script src="/js/hugo-learn.js?1678909646"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678983047"></script>
+    <script src="/js/learn.js?1678983047"></script>
+    <script src="/js/hugo-learn.js?1678983047"></script>
     
         
-            <script src="/mermaid/mermaid.js?1678909646"></script>
+            <script src="/mermaid/mermaid.js?1678983047"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
