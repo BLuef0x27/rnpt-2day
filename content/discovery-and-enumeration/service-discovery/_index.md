@@ -4,4 +4,4 @@ menuTitle = "2.2 Service Discovery"
 weight = 25
 +++
 
-![](./service-disco.png)
+![](./service-disco2.png)
