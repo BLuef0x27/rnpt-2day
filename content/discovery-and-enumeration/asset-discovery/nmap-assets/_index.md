@@ -193,9 +193,27 @@ Here is a quick command to turn the *subnetsweep.gnmap* file into a new *ranges.
 grep "Up" scans/subnetsweep | cut -d " " -f2 | awk -F "." '{print $1"."$2"."$3".0/24"}' > subnets.txt
 ```
 
-## 4. Fished with Host Discovery
+## 4. Fishing Host Discovery
 Now that you've completed your host discovery scans run this command to build your final *targets.txt* file which you'll use for service discovery.
 
 ```bash
 cat hosts/*.txt | sort -u > targets.txt
 ```
+
+### 4.1 Finalize targets.txt file
+Open up your targets.txt file in *vim* or whatever text editor you prefer
+![](./targets1.png)
+
+Delete the following IP addresses from this file.
+ *  **192.168.0.1** - Your Azure Lab VM
+ *  **192.168.0.103** - Your Pentest VM
+
+![](./targets2.png)
+
+Get into the habbit of doing this early on, otherwise you will inevitably *hack* into your own machine while on a pentest one day. 
+Don't jude, we've all done it.
+
+### 4.2. Project Folder
+When all is said and done you're project folder should look something like this.
+
+![](./tree1.png)

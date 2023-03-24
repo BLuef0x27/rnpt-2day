@@ -72,7 +72,7 @@ Version options:
 ### 1.1 Basic Usage
 To connect to an SMB share use the following command:
 
-`smbclient '\\192.168.0.130\xamp' -U 'sciencerocks\richard.f' -p`
+`smbclient '\\192.168.0.130\xampp' -U 'sciencerocks\richard.f' -p`
 
 ```bash
 Password for [SCIENCEROCKS\richard.f]:

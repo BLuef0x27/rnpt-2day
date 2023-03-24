@@ -12,20 +12,20 @@
     <title>Host discovery with Nmap :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1678988699" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1678988699" rel="stylesheet">
-    <link href="/css/hybrid.css?1678988699" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1678988699" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1678988699" rel="stylesheet">
-    <link href="/css/auto-complete.css?1678988699" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1678988699" rel="stylesheet">
-    <link href="/css/theme.css?1678988699" rel="stylesheet">
-    <link href="/css/tabs.css?1678988699" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1678988699" rel="stylesheet">
+    <link href="/css/nucleus.css?1679677561" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1679677561" rel="stylesheet">
+    <link href="/css/hybrid.css?1679677561" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1679677561" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1679677561" rel="stylesheet">
+    <link href="/css/auto-complete.css?1679677561" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1679677561" rel="stylesheet">
+    <link href="/css/theme.css?1679677561" rel="stylesheet">
+    <link href="/css/tabs.css?1679677561" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1679677561" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1678988699"></script>
+    <script src="/js/jquery-3.3.1.min.js?1679677561"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1678988699"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1678988699"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1679677561"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1679677561"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1678988699"></script>
+<script type="text/javascript" src="/js/search.js?1679677561"></script>
 
     
   </div>
@@ -891,7 +891,12 @@
         <li><a href="#31-perform-regular-discovery-on-subnets">3.1. Perform regular discovery on subnets</a></li>
       </ul>
     </li>
-    <li><a href="#4-fished-with-host-discovery">4. Fished with Host Discovery</a></li>
+    <li><a href="#4-fishing-host-discovery">4. Fishing Host Discovery</a>
+      <ul>
+        <li><a href="#41-finalize-targetstxt-file">4.1 Finalize targets.txt file</a></li>
+        <li><a href="#42-project-folder">4.2. Project Folder</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -1094,10 +1099,24 @@ DO NOT run this scan, I&rsquo;ll explain :)</p>
 <h3 id="31-perform-regular-discovery-on-subnets">3.1. Perform regular discovery on subnets</h3>
 <p>Here is a quick command to turn the <em>subnetsweep.gnmap</em> file into a new <em>ranges.txt</em> file that you can use for basic or RMI host discovery.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep <span style="color:#e6db74">&#34;Up&#34;</span> scans/subnetsweep | cut -d <span style="color:#e6db74">&#34; &#34;</span> -f2 | awk -F <span style="color:#e6db74">&#34;.&#34;</span> <span style="color:#e6db74">&#39;{print $1&#34;.&#34;$2&#34;.&#34;$3&#34;.0/24&#34;}&#39;</span> &gt; subnets.txt
-</span></span></code></pre></div><h2 id="4-fished-with-host-discovery">4. Fished with Host Discovery</h2>
+</span></span></code></pre></div><h2 id="4-fishing-host-discovery">4. Fishing Host Discovery</h2>
 <p>Now that you&rsquo;ve completed your host discovery scans run this command to build your final <em>targets.txt</em> file which you&rsquo;ll use for service discovery.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat hosts/*.txt | sort -u &gt; targets.txt
-</span></span></code></pre></div>
+</span></span></code></pre></div><h3 id="41-finalize-targetstxt-file">4.1 Finalize targets.txt file</h3>
+<p>Open up your targets.txt file in <em>vim</em> or whatever text editor you prefer
+<img src="./targets1.png" alt=""></p>
+<p>Delete the following IP addresses from this file.</p>
+<ul>
+<li><strong>192.168.0.1</strong> - Your Azure Lab VM</li>
+<li><strong>192.168.0.103</strong> - Your Pentest VM</li>
+</ul>
+<p><img src="./targets2.png" alt=""></p>
+<p>Get into the habbit of doing this early on, otherwise you will inevitably <em>hack</em> into your own machine while on a pentest one day.
+Don&rsquo;t jude, we&rsquo;ve all done it.</p>
+<h3 id="42-project-folder">4.2. Project Folder</h3>
+<p>When all is said and done you&rsquo;re project folder should look something like this.</p>
+<p><img src="./tree1.png" alt=""></p>
+
 
 
 
@@ -1582,19 +1601,19 @@ DO NOT run this scan, I&rsquo;ll explain :)</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1678988699"></script>
-    <script src="/js/perfect-scrollbar.min.js?1678988699"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1678988699"></script>
-    <script src="/js/jquery.sticky.js?1678988699"></script>
-    <script src="/js/featherlight.min.js?1678988699"></script>
-    <script src="/js/highlight.pack.js?1678988699"></script>
+    <script src="/js/clipboard.min.js?1679677561"></script>
+    <script src="/js/perfect-scrollbar.min.js?1679677561"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1679677561"></script>
+    <script src="/js/jquery.sticky.js?1679677561"></script>
+    <script src="/js/featherlight.min.js?1679677561"></script>
+    <script src="/js/highlight.pack.js?1679677561"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1678988699"></script>
-    <script src="/js/learn.js?1678988699"></script>
-    <script src="/js/hugo-learn.js?1678988699"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1679677561"></script>
+    <script src="/js/learn.js?1679677561"></script>
+    <script src="/js/hugo-learn.js?1679677561"></script>
     
         
-            <script src="/mermaid/mermaid.js?1678988699"></script>
+            <script src="/mermaid/mermaid.js?1679677561"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
