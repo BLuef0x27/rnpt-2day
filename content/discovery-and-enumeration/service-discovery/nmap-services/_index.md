@@ -40,13 +40,13 @@ nmap -Pn -n -sV -iL targets.txt -p $MYPORTS -oA scans/tcp-fav
 This scan can take a while but will check for all 65k+ ports and often identify *weird* services or maybe normal services listening on *non-standard* ports.  
 *H.D. Moore* once told me that the "magic" number is 50,000.  That's the true maximum number of packets per second that Nmap can send due to old school C style TCP socket programming.
 ```bash
-nmap -Pn -n -sV -A -iL targets.txt -p 1-65535 -oA scans/tcp-all -v --min-rate 5000 -T4
+nmap -Pn -n -sV -A -iL targets.txt -p 1-65535 -oA scans/tcp-all -v --min-rate 1000 -T4
 ```
 
 * **-T<0-5>:**
   * Set timing template (higher is faster)
-* **--min-rate 500:**
-  * Scan 500 ports at a time on each of the 100 hosts
+* **--min-rate 1000:**
+  * Scan 1000 ports at a time on each host (can play with this)
 * **-A:**
   * Enable OS detection, version detection, script scanning, and traceroute
 * **-v:**
@@ -60,7 +60,7 @@ For a quick and dirty overview of just open ports and services I recommend the *
 parsenmap scans/tcp-all.xml | column -t -s $'\t'
 ```
 
-![](./parsenmap2.png)
+![](./parsenmap3.png)
 
 ### 3.1 Protocol-specific Target Lists
 Here's a secret sauce *#protip*.  It's a good idea to split out your IP address list into protocol groupings.
