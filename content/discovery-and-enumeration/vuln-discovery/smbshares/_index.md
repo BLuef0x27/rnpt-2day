@@ -5,7 +5,79 @@ weight = 60
 +++
 ![](./sharecare.png)
 
-## 1. Accessing From Commandline
+## 1. Enumerating SMB Shares
+Now that we know we have valid AD credentials one of the next things we should do is take a look at any SMB shares we have access to to see if there is anything we can compromise.
+
+`crackmapexec smb hosts/windows.txt -u richard.f -p "Security24-7" --shares`
+
+```bash
+SMB         192.168.0.120   445    HAWKINGWINSRV19  [+] Sciencerocks.local\richard.f:Security24-7 
+SMB         192.168.0.120   445    HAWKINGWINSRV19  [+] Enumerated shares
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [+] Sciencerocks.local\richard.f:Security24-7 
+SMB         192.168.0.120   445    HAWKINGWINSRV19  Share           Permissions     Remark
+SMB         192.168.0.120   445    HAWKINGWINSRV19  -----           -----------     ------
+SMB         192.168.0.120   445    HAWKINGWINSRV19  ADMIN$                          Remote Admin
+SMB         192.168.0.120   445    HAWKINGWINSRV19  C$                              Default share
+SMB         192.168.0.120   445    HAWKINGWINSRV19  IPC$            READ            Remote IPC
+SMB         192.168.0.100   445    EINSTEIN-DC01    [+] Sciencerocks.local\richard.f:Security24-7 
+SMB         192.168.0.104   445    KEPLER-LINSRV14  [+] \richard.f:Security24-7 
+SMB         192.168.0.104   445    KEPLER-LINSRV14  [+] Enumerated shares
+SMB         192.168.0.104   445    KEPLER-LINSRV14  Share           Permissions     Remark
+SMB         192.168.0.104   445    KEPLER-LINSRV14  -----           -----------     ------
+SMB         192.168.0.104   445    KEPLER-LINSRV14  print$                          Printer Drivers
+SMB         192.168.0.104   445    KEPLER-LINSRV14  IPC$                            IPC Service (kepler-linsrv14 server (Samba, Ubuntu))
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [+] Enumerated shares
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  Share           Permissions     Remark
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  -----           -----------     ------
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  ADMIN$                          Remote Admin
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  C$                              Default share
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  IPC$            READ            Remote IPC
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  Users           READ            
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  xampp           READ,WRITE      
+SMB         192.168.0.100   445    EINSTEIN-DC01    [+] Enumerated shares
+SMB         192.168.0.100   445    EINSTEIN-DC01    Share           Permissions     Remark
+SMB         192.168.0.100   445    EINSTEIN-DC01    -----           -----------     ------
+SMB         192.168.0.100   445    EINSTEIN-DC01    ADMIN$                          Remote Admin
+SMB         192.168.0.100   445    EINSTEIN-DC01    C$                              Default share
+SMB         192.168.0.100   445    EINSTEIN-DC01    IPC$            READ            Remote IPC
+SMB         192.168.0.100   445    EINSTEIN-DC01    NETLOGON        READ            Logon server share 
+SMB         192.168.0.100   445    EINSTEIN-DC01    SYSVOL          READ            Logon server share
+```
+
+Take note of the *xampp* share which our compromised user account has both READ and WRITE access to! 
+
+### 1.1. Spidering SMB Shares
+We can also use CrackMapExec to spider though 
+a particular share searching for interesting filenames.  For example:
+
+`cme smb 192.168.0.130 -u richard.f -p Security24-7 --spider xampp --pattern passw`
+```bash
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [*] Started spidering
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [*] Spidering .
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/passwords.txt [lastm:'2023-03-11 13:07' size:824]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/apache/bin/htpasswd.exe [lastm:'2023-03-11 13:07' size:119296]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/reset-mysql-password.html [lastm:'2023-03-11 13:07' size:6476]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/reset-mysql-password.pdf [lastm:'2023-03-11 13:07' size:61387]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/reset-mysql-password.pdfmarks [lastm:'2023-03-11 13:07' size:215]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/images/reset-mysql-password [dir]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/MercuryMail/MAIL/Admin/PASSWD.PM [lastm:'2023-03-11 13:07' size:66]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/MercuryMail/MAIL/newuser/PASSWD.PM [lastm:'2023-03-11 13:07' size:71]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/MercuryMail/MAIL/postmaster/PASSWD.PM [lastm:'2023-03-11 13:07' size:66]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/php/pear/File/Passwd [dir]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/php/pear/File/Passwd.php [lastm:'2023-03-11 13:07' size:13548]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/libraries/classes/UserPassword.php [lastm:'2023-03-11 13:07' size:7024]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/libraries/classes/Controllers/UserPasswordController.php [lastm:'2023-03-11 13:07' size:3379]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/templates/user_password.twig [lastm:'2023-03-11 13:07' size:83]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/templates/server/privileges/change_password.twig [lastm:'2023-03-11 13:07' size:3401]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/bootstrap/img/password.svg [lastm:'2023-03-11 13:07' size:342]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/metro/img/s_passwd.png [lastm:'2023-03-11 13:07' size:1034]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/original/img/s_passwd.png [lastm:'2023-03-11 13:07' size:331]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/pmahomme/img/s_passwd.png [lastm:'2023-03-11 13:07' size:331]
+SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [*] Done spidering (Completed in 149.30476093292236)
+```
+
+
+## 2. Accessing From Commandline
 When in doubt, one of the quickest/easiest ways to connect to an SMB share is to use the *smbclient* commandline utility.
 
 `smbclient --help`
@@ -69,7 +141,7 @@ Version options:
   -V, --version                                Print version
 ```
 
-### 1.1 Basic Usage
+### 2.1 Basic Usage
 To connect to an SMB share use the following command:
 
 `smbclient '\\192.168.0.130\xampp' -U 'sciencerocks\richard.f' -p`
@@ -136,7 +208,7 @@ smb: \> dir
 
 Form here you can use FTP style *get* and *put* commands to download or upload files to/from the share.
 
-## 2. GUI File Browser
+## 3. GUI File Browser
 Most GUI file browsers have a built in capability to connect to an smb share with something like *smb://[ip address]*.  Open up the Ubuntu file browser 
 and click on *+ Other Locations* from the left navigation. Then type in *smb://192.168.0.130/xampp* and click Connect.
 
@@ -150,74 +222,4 @@ Now you can see the files in the share as if they were located on your own machi
 
 ![](./smbgui03.png)
 
-## 3. Enumerating SMB Shares
-Now that we know we have valid AD credentials one of the next things we should do is take a look at any SMB shares we have access to to see if there is anything we can compromise.
-
-`crackmapexec smb hosts/windows.txt -u richard.f -p "Security24-7" --shares`
-
-```bash
-SMB         192.168.0.120   445    HAWKINGWINSRV19  [+] Sciencerocks.local\richard.f:Security24-7 
-SMB         192.168.0.120   445    HAWKINGWINSRV19  [+] Enumerated shares
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [+] Sciencerocks.local\richard.f:Security24-7 
-SMB         192.168.0.120   445    HAWKINGWINSRV19  Share           Permissions     Remark
-SMB         192.168.0.120   445    HAWKINGWINSRV19  -----           -----------     ------
-SMB         192.168.0.120   445    HAWKINGWINSRV19  ADMIN$                          Remote Admin
-SMB         192.168.0.120   445    HAWKINGWINSRV19  C$                              Default share
-SMB         192.168.0.120   445    HAWKINGWINSRV19  IPC$            READ            Remote IPC
-SMB         192.168.0.100   445    EINSTEIN-DC01    [+] Sciencerocks.local\richard.f:Security24-7 
-SMB         192.168.0.104   445    KEPLER-LINSRV14  [+] \richard.f:Security24-7 
-SMB         192.168.0.104   445    KEPLER-LINSRV14  [+] Enumerated shares
-SMB         192.168.0.104   445    KEPLER-LINSRV14  Share           Permissions     Remark
-SMB         192.168.0.104   445    KEPLER-LINSRV14  -----           -----------     ------
-SMB         192.168.0.104   445    KEPLER-LINSRV14  print$                          Printer Drivers
-SMB         192.168.0.104   445    KEPLER-LINSRV14  IPC$                            IPC Service (kepler-linsrv14 server (Samba, Ubuntu))
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [+] Enumerated shares
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  Share           Permissions     Remark
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  -----           -----------     ------
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  ADMIN$                          Remote Admin
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  C$                              Default share
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  IPC$            READ            Remote IPC
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  Users           READ            
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  xampp           READ,WRITE      
-SMB         192.168.0.100   445    EINSTEIN-DC01    [+] Enumerated shares
-SMB         192.168.0.100   445    EINSTEIN-DC01    Share           Permissions     Remark
-SMB         192.168.0.100   445    EINSTEIN-DC01    -----           -----------     ------
-SMB         192.168.0.100   445    EINSTEIN-DC01    ADMIN$                          Remote Admin
-SMB         192.168.0.100   445    EINSTEIN-DC01    C$                              Default share
-SMB         192.168.0.100   445    EINSTEIN-DC01    IPC$            READ            Remote IPC
-SMB         192.168.0.100   445    EINSTEIN-DC01    NETLOGON        READ            Logon server share 
-SMB         192.168.0.100   445    EINSTEIN-DC01    SYSVOL          READ            Logon server share
-```
-
-Take note of the *xampp* share which our compromised user account has both READ and WRITE access to! 
-
-### 3.1. Spidering SMB Shares
-We can also use CrackMapExec to spider though 
-a particular share searching for interesting filenames.  For example:
-
-`cme smb 192.168.0.130 -u richard.f -p Security24-7 --spider xampp --pattern passw`
-```bash
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [*] Started spidering
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [*] Spidering .
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/passwords.txt [lastm:'2023-03-11 13:07' size:824]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/apache/bin/htpasswd.exe [lastm:'2023-03-11 13:07' size:119296]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/reset-mysql-password.html [lastm:'2023-03-11 13:07' size:6476]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/reset-mysql-password.pdf [lastm:'2023-03-11 13:07' size:61387]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/reset-mysql-password.pdfmarks [lastm:'2023-03-11 13:07' size:215]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/htdocs/dashboard/docs/images/reset-mysql-password [dir]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/MercuryMail/MAIL/Admin/PASSWD.PM [lastm:'2023-03-11 13:07' size:66]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/MercuryMail/MAIL/newuser/PASSWD.PM [lastm:'2023-03-11 13:07' size:71]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/MercuryMail/MAIL/postmaster/PASSWD.PM [lastm:'2023-03-11 13:07' size:66]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/php/pear/File/Passwd [dir]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/php/pear/File/Passwd.php [lastm:'2023-03-11 13:07' size:13548]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/libraries/classes/UserPassword.php [lastm:'2023-03-11 13:07' size:7024]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/libraries/classes/Controllers/UserPasswordController.php [lastm:'2023-03-11 13:07' size:3379]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/templates/user_password.twig [lastm:'2023-03-11 13:07' size:83]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/templates/server/privileges/change_password.twig [lastm:'2023-03-11 13:07' size:3401]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/bootstrap/img/password.svg [lastm:'2023-03-11 13:07' size:342]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/metro/img/s_passwd.png [lastm:'2023-03-11 13:07' size:1034]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/original/img/s_passwd.png [lastm:'2023-03-11 13:07' size:331]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  //192.168.0.130/xampp/phpMyAdmin/themes/pmahomme/img/s_passwd.png [lastm:'2023-03-11 13:07' size:331]
-SMB         192.168.0.130   445    FEYNMAN-WINSRV1  [*] Done spidering (Completed in 149.30476093292236)
-```
 
