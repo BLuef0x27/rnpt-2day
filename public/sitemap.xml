@@ -10,9 +10,7 @@
   </url><url>
     <loc>/discovery-and-enumeration/</loc>
   </url><url>
-    <loc>/post-exploitation/pass-the-hash/</loc>
-  </url><url>
-    <loc>/controlled-exploitation/rdp-access/</loc>
+    <loc>/post-exploitation/windows/pass-the-hash/</loc>
   </url><url>
     <loc>/controlled-exploitation/</loc>
   </url><url>
@@ -20,13 +18,15 @@
   </url><url>
     <loc>/post-exploitation/linux/</loc>
   </url><url>
+    <loc>/controlled-exploitation/rdp-access/</loc>
+  </url><url>
     <loc>/post-exploitation/</loc>
   </url><url>
-    <loc>/controlled-exploitation/mythic/</loc>
+    <loc>/post-exploitation/mythic/</loc>
   </url><url>
     <loc>/documentation/</loc>
   </url><url>
-    <loc>/controlled-exploitation/merlin/</loc>
+    <loc>/post-exploitation/merlin/</loc>
   </url><url>
     <loc>/discovery-and-enumeration/asset-discovery/</loc>
   </url><url>
