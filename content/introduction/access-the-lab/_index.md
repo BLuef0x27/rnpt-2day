@@ -21,3 +21,6 @@ Use the Hyper-V Manager to start up the lab virtual machines.
 
 1. Open the Hyper-V Manager using the shortcut on your Desktop
 2. Highlight all of the VMs, right+click and select *Start*
+
+*Corection!*
+First start **Einstein-dc01**, wait 20 seconds or so, then start the remaining four VMs.
