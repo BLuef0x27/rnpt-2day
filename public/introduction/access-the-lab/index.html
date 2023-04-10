@@ -12,20 +12,20 @@
     <title>Accessing the Lab :: Real Network Penetration Testing</title>
 
     
-    <link href="/css/nucleus.css?1680920542" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1680920542" rel="stylesheet">
-    <link href="/css/hybrid.css?1680920542" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1680920542" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1680920542" rel="stylesheet">
-    <link href="/css/auto-complete.css?1680920542" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1680920542" rel="stylesheet">
-    <link href="/css/theme.css?1680920542" rel="stylesheet">
-    <link href="/css/tabs.css?1680920542" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1680920542" rel="stylesheet">
+    <link href="/css/nucleus.css?1681147005" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1681147005" rel="stylesheet">
+    <link href="/css/hybrid.css?1681147005" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1681147005" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1681147005" rel="stylesheet">
+    <link href="/css/auto-complete.css?1681147005" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1681147005" rel="stylesheet">
+    <link href="/css/theme.css?1681147005" rel="stylesheet">
+    <link href="/css/tabs.css?1681147005" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1681147005" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1680920542"></script>
+    <script src="/js/jquery-3.3.1.min.js?1681147005"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1680920542"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1680920542"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1681147005"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1681147005"></script>
 <script type="text/javascript">
     
         var baseurl = "";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1680920542"></script>
+<script type="text/javascript" src="/js/search.js?1681147005"></script>
 
     
   </div>
@@ -755,11 +755,14 @@
       </a>
       
       
-    </li>
-  
- 
-
+        <ul>
+          
+          
             
+          
+          
+
+        
           
             
             
@@ -770,16 +773,25 @@
  
   
     
-    <li data-nav-id="/post-exploitation/merlin/" title="Merlin Agent" class="dd-item
+    <li data-nav-id="/post-exploitation/mythic/merlin/" title="Merlin Agent" class="dd-item
         
         
         
         ">
-      <a href="/post-exploitation/merlin/">
+      <a href="/post-exploitation/mythic/merlin/">
           Merlin Agent
           
       </a>
       
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
       
     </li>
   
@@ -882,8 +894,9 @@
     <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#before-booting-the-vms">Before Booting the VMs</a></li>
-    <li><a href="#booting-the-vms">Booting the VMs</a></li>
+    <li><a href="#1-before-booting-the-vms">1. Before Booting the VMs</a></li>
+    <li><a href="#2-booting-the-vms">2. Booting the VMs</a></li>
+    <li><a href="#3-pentst-vm-gotcha">3. Pentst VM gotcha</a></li>
   </ul>
 </nav>
     </div>
@@ -909,7 +922,7 @@
 
 
 
-	<h2 id="before-booting-the-vms">Before Booting the VMs</h2>
+	<h2 id="1-before-booting-the-vms">1. Before Booting the VMs</h2>
 <p>Hyper-V VMs take up a lot of diskspace.  Your lab VM has a temporary storage drive which gets wipped after every reboot.  To save space on your C:\
 I&rsquo;ve told Hyper-V to store sate files on this Temporary Storage partition and then placed backups on the C:\ partition.  If this doesn&rsquo;t make any sense
 don&rsquo;t worry about it, just follow the image below to copy over the files so your VMs will boot.</p>
@@ -920,7 +933,7 @@ don&rsquo;t worry about it, just follow the image below to copy over the files s
 <li>Select <em>Copy</em> form the menu</li>
 <li>Paste the <em>Virtual Machines</em> folder at the root of the <em>Temporary Storage (D:)</em> partition</li>
 </ol>
-<h2 id="booting-the-vms">Booting the VMs</h2>
+<h2 id="2-booting-the-vms">2. Booting the VMs</h2>
 <p>Use the Hyper-V Manager to start up the lab virtual machines.
 <img src="./startvms.png" alt=""></p>
 <ol>
@@ -929,6 +942,17 @@ don&rsquo;t worry about it, just follow the image below to copy over the files s
 </ol>
 <p><em>Corection!</em>
 First start <strong>Einstein-dc01</strong>, wait 20 seconds or so, then start the remaining four VMs.</p>
+<h2 id="3-pentst-vm-gotcha">3. Pentst VM gotcha</h2>
+<p>It&rsquo;s entirely possible that this issue was isolated to me and me alone but just to be on the safe side.  I noticed that
+the Ubuntu screensaver was causing my RDP session to freeze which resulted in annoying VM reboots.  I recommend disabling
+it just to be on the safe side.</p>
+<ul>
+<li>Click on the power icon in the upper-right corner</li>
+<li>Select <strong>Settings</strong></li>
+<li>Choose <strong>Power</strong> from the left navigation</li>
+<li>Under the heading <em>Power Saving Options</em> select <strong>Never</strong> from the drop down</li>
+</ul>
+<p><img src="./ubuntu1.png" alt=""></p>
 
 
 
@@ -1349,11 +1373,10 @@ First start <strong>Einstein-dc01</strong>, wait 20 seconds or so, then start th
 
                     
                     
+                        
+                    
                     
 
-                    
-            
-        
                     
                         
             
@@ -1367,6 +1390,9 @@ First start <strong>Einstein-dc01</strong>, wait 20 seconds or so, then start th
                     
                     
 
+                    
+            
+        
                     
             
         
@@ -1412,19 +1438,19 @@ First start <strong>Einstein-dc01</strong>, wait 20 seconds or so, then start th
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1680920542"></script>
-    <script src="/js/perfect-scrollbar.min.js?1680920542"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1680920542"></script>
-    <script src="/js/jquery.sticky.js?1680920542"></script>
-    <script src="/js/featherlight.min.js?1680920542"></script>
-    <script src="/js/highlight.pack.js?1680920542"></script>
+    <script src="/js/clipboard.min.js?1681147005"></script>
+    <script src="/js/perfect-scrollbar.min.js?1681147005"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1681147005"></script>
+    <script src="/js/jquery.sticky.js?1681147005"></script>
+    <script src="/js/featherlight.min.js?1681147005"></script>
+    <script src="/js/highlight.pack.js?1681147005"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1680920542"></script>
-    <script src="/js/learn.js?1680920542"></script>
-    <script src="/js/hugo-learn.js?1680920542"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1681147005"></script>
+    <script src="/js/learn.js?1681147005"></script>
+    <script src="/js/hugo-learn.js?1681147005"></script>
     
         
-            <script src="/mermaid/mermaid.js?1680920542"></script>
+            <script src="/mermaid/mermaid.js?1681147005"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
