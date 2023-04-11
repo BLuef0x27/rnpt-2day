@@ -15,4 +15,8 @@ draw my attention towards?
 
 #### Best
 Now this screenshot is perfect!  It's removed everything that doesn't matter and even draw boxes with labels around the specific details being called out.
-![](./best.png)
+
+*Note:* Some would argue the darkened screen around the bright Jenkins server is unecessary and I wouldn't hold that 
+against you if you agree with them.  I personally  prefer wider landscape screenshots because they render nicley 
+in word documents as apposed to taller or square ones.  
+![](./bestest.png)
