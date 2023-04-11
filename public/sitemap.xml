@@ -4,6 +4,8 @@
   <url>
     <loc>/introduction/</loc>
   </url><url>
+    <loc>/introduction/schedule/</loc>
+  </url><url>
     <loc>/controlled-exploitation/metasploit/</loc>
   </url><url>
     <loc>/post-exploitation/windows/</loc>
